@@ -8,4 +8,8 @@
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExplyMe.Infrastructure\ExplyMe.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

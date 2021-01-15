@@ -1,3 +1,4 @@
+using ExplyMe.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ namespace ExplyMe
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddInfrastructureModule(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
