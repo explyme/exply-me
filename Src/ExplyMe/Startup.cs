@@ -38,6 +38,7 @@ namespace ExplyMe.WebApp
             ModuleInjector
                 .CreateInjector()
                 .Inject<Modules.Core.ModuleInitializer>()
+                .Inject<Modules.Notification.ModuleInitializer>()
                 .BindServices(services);
         }
 
