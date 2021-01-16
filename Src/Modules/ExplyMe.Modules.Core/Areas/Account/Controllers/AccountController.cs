@@ -31,6 +31,15 @@ namespace ExplyMe.Modules.Core.Areas.Account.Controllers
             return View();
         }
 
+        [Authorize]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await SignInManager.SignOutAsync();
+
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
