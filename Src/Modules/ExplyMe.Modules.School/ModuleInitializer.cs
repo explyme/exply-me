@@ -1,4 +1,6 @@
 ﻿using ExplyMe.Infrastructure.Modules;
+using ExplyMe.Modules.School.Areas.School.Services;
+using ExplyMe.Modules.School.Areas.School.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,8 @@ namespace ExplyMe.Modules.School
 
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            services.AddTransient<ISchoolCreator, SchoolCreator>();
+            services.AddTransient<ISchoolFinder, SchoolFinder>();
         }
     }
 }

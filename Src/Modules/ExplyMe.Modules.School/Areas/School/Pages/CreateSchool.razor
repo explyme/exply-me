@@ -1,9 +1,47 @@
 ﻿@page "/school/create"
 @attribute [Authorize]
 
-<h3>CreateSchool</h3>
+@inject ISchoolCreator SchoolCreator
+@inject NavigationManager NavigationManager
+
+
+<EditForm Model="@School" OnSubmit="(async () => await Submit())">
+    <div class="form-group">
+        <label>Nome da Escola:</label>
+        <InputText id="displayName" class="form-control" @bind-Value="School.DisplayName" />
+    </div>
+    <div class="form-group">
+        <label>Descrição da Escola:</label>
+        <InputText id="bio" class="form-control" @bind-Value="School.Bio" />
+    </div>
+    <div class="form-group">
+        <label>Url da Escola:</label>
+        <InputText id="friendlyUrl" class="form-control" @bind-Value="School.FriendlyUrl" />
+    </div>
+    <div class="form-group">
+        <label>Url do Logo da Escola:</label>
+        <InputText id="logoUrl" class="form-control" @bind-Value="School.LogoUrl" />
+    </div>
+    <div class="form-group form-check">
+        <InputCheckbox id="isPublic" class="form-check-input" @bind-Value="School.IsPublic" />
+        <label class="form-check-label"> é publico?</label>
+    </div>
+    <button type="submit" class="d-block btn btn-success btn-lg">Cadastrar</button>
+</EditForm>
+
 
 @code {
 
     public static string Title => "Criar Escola";
+
+    private SchoolEntity School { get; set; } = new SchoolEntity();
+
+    private async Task Submit()
+    {        
+        var school = await SchoolCreator.CreateAsync(School);
+
+        var urlToRedirect = $"/school/{school.Id}/details";
+
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
 }

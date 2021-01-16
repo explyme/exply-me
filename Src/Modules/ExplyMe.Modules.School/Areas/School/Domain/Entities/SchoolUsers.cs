@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ExplyMe.Infrastructure.Data;
+using System;
 
 namespace ExplyMe.Modules.School.Areas.School.Domain.Entities
 {
-    public class SchoolUser
+    public class SchoolUsers: Entity
     {
-        public SchoolUser()
+        public SchoolUsers()
         {
             CreatedAt = DateTime.UtcNow;
         }

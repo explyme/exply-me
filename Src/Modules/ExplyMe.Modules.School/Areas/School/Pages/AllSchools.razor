@@ -1,0 +1,28 @@
+﻿@page "/school"
+@attribute [Authorize]
+
+@inject ISchoolFinder SchoolFinder
+
+@*<div class="row">
+        <div class="col-10">
+            @foreach (var notification in Notifications)
+            {
+                <div class="d-block card border mb-2 notification-link">
+                    <a class="row p-3 text-decoration-none text-primary" href="@notification.Url">
+                        <div class="col-1">
+                            <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                        </div>
+                        <div class="col">
+                            <span>@((MarkupString)notification.CompiledMessage)</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+</div>*@
+
+@code {
+    public static string Title => "Detalhes da Escola";
+
+    private IEnumerable<SchoolEntity> Notifications { get; set; } = new List<SchoolEntity>();
+}

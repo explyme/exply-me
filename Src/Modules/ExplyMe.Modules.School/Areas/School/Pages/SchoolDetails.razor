@@ -1,0 +1,54 @@
+﻿@page "/school/{SchoolId:long}/details"
+@attribute [Authorize]
+
+@inject ISchoolFinder SchoolFinder
+@inject NavigationManager NavigationManager
+
+
+
+<div class="form-group">
+    <label>Nome da Escola:</label>
+    <span class="form-control">@School.DisplayName</span>
+</div>
+<div class="form-group">
+    <label>Descrição da Escola:</label>
+    <span class="form-control"> @School.Bio </span>
+</div>
+<div class="form-group">
+    <label>Url da Escola:</label>
+    <span class="form-control"> @School.FriendlyUrl </span>
+</div>
+<div class="form-group">
+    <label>Url do Logo da Escola:</label>
+    <span class="form-control">@School.LogoUrl </span>
+</div>
+<div class="form-group form-check">
+    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsPublic />
+    <label class="form-check-label"> é publico?</label>
+</div>
+<div class="form-group form-check">
+    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsBlocked />
+    <label class="form-check-label"> esta bloqueado ? </label>
+</div>
+
+<button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4">Associar Turma</button>
+
+
+@code {
+
+    public static string Title => "Detalhes da Escola";
+
+    [Parameter]
+    public long SchoolId { get; set; }
+    private SchoolEntity School { get; set; } = new SchoolEntity();
+
+    protected override async Task OnInitializedAsync()
+    {
+        School = await SchoolFinder.FindByIdAsync(SchoolId);
+    }
+    private void ClassAssociate()
+    {
+        var urlToRedirect = $"scholl/{SchoolId}/associate";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
+}

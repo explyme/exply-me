@@ -1,12 +1,14 @@
-﻿using System;
+﻿using ExplyMe.Infrastructure.Data;
+using System;
 
 namespace ExplyMe.Modules.School.Areas.School.Domain.Entities
 {
-    public class School
+    public class SchoolEntity: Entity
     {
-        public School()
+        public SchoolEntity()
         {
             CreatedAt = DateTime.UtcNow;
+            IsBlocked = false;
         }
         public long Id { get; set; }
         public string FriendlyUrl{ get; set; }
