@@ -75,6 +75,13 @@ namespace ExplyMe.Modules.Core.Areas.Account.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register(RegisterViewModel request)
