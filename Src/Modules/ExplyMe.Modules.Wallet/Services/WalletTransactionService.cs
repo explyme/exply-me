@@ -1,4 +1,5 @@
-﻿using ExplyMe.Infrastructure.Data;
+﻿using Dapper;
+using ExplyMe.Infrastructure.Data;
 using ExplyMe.Modules.Wallet.Data.Interfaces;
 using ExplyMe.Modules.Wallet.Domain.Entities;
 using ExplyMe.Modules.Wallet.Domain.Enums;
@@ -45,9 +46,17 @@ namespace ExplyMe.Modules.Wallet.Services
             await WalletAccountBalanceStore.IncrementAvailableBalanceAsync(accountId, amount, connection, dbTransaction);
         }
 
-        public Task<IEnumerable<WalletTransaction>> FindByAccountAsync(long walletId)
+        public async Task<IEnumerable<WalletTransaction>> FindByAccountAsync(long walletId)
         {
-            throw new NotImplementedException();
+            using var connection = SqlConnectionFactory.CreateWriteConnection();
+            await connection.OpenAsync();
+            using var dbTransaction = await connection.BeginTransactionAsync(IsolationLevel.ReadUncommitted, CancellationToken.None);
+
+            var query = @"SELECT * FROM [WalletTransaction] WHERE [WalletTransaction].[ToId] = @walletId";
+
+            var result = await connection.QueryAsync<WalletTransaction>(query, new { walletId }, transaction: dbTransaction);
+
+            return result;
         }
 
         public Task<WalletTransaction> GetAsync(Guid transactionId)
