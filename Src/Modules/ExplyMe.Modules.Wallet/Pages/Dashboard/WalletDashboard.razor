@@ -1,0 +1,22 @@
+﻿@page "/wallet"
+
+@attribute [Authorize]
+@inject IWalletAccountService AccountService
+@inject UserManager<User> UserManager
+
+<GuaranteedWallet>
+    <h1>Sua carteira fera</h1>
+</GuaranteedWallet>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; }
+
+    public bool UserHasWallet { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userId = Convert.ToInt64(UserManager.GetUserId((await AuthState).User));
+        var wallet = await AccountService.FindUserAccountsAsync(userId);
+    }
+}

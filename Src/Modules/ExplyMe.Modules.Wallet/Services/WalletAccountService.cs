@@ -33,7 +33,7 @@ namespace ExplyMe.Modules.Wallet.Services
             async Task CreateAccount()
             {
                 var query =
-@"INSERT INTO [WalletAccounts]
+@"INSERT INTO [WalletAccount]
 ([AvailableBalance], [BlockedBalance], [FutureBalance], [CreatedAt])
 OUTPUT INSERTED.ID
 VALUES(0, 0, 0, @CreatedAt)";
