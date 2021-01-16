@@ -9,6 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Error.cshtml" />
+    <None Include="Pages\Index.razor" />
+    <None Include="Pages\_Host.cshtml" />
+    <None Include="Shared\MainLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ExplyMe.Infrastructure\ExplyMe.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\ExplyMe.Modules.Core\ExplyMe.Modules.Core.csproj" />
   </ItemGroup>

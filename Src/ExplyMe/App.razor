@@ -1,11 +1,29 @@
-﻿
-<Router AppAssembly="@typeof(Program).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-    </Found>
-    <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿@using ExplyMe.Components.Errors
+@using ExplyMe.Components
+@using ExplyMe.Infrastructure.Modules
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly"
+            AdditionalAssemblies="ModuleInjector.AllModulesAssembly">
+        <Found Context="routeData">
+            <CascadingValue Value="@routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                        <RedirectToLogin />
+                    </NotAuthorized>
+                    <Authorizing>
+                        <div class="d-block mx-auto mt-5 card p-4 shadow-lg text-center" style="width: 400px">
+                            <h4>Aguarde!</h4>
+                            <h5>Estamos verificando suas permissões...</h5>
+                        </div>
+                    </Authorizing>
+                </AuthorizeRouteView>
+            </CascadingValue>
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <Error404 />
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
