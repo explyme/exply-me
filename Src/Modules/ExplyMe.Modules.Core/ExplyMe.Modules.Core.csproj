@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\ExplyMe.Infrastructure\ExplyMe.Infrastructure.csproj" />
   </ItemGroup>
 
