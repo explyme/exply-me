@@ -12,8 +12,8 @@
                         <div class="col">
                             @transaction.SoftDescriptor
                         </div>
-                        <div class="col-2 @GetAmountColor(transaction.Amount)">
-                            @transaction.Amount
+                        <div class="col-2 text-right @GetAmountColor(transaction.Amount)">
+                            R$ @MoneyFormatter.Format(transaction.Amount)
                         </div>
                     </div>
                 </div>

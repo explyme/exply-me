@@ -64,14 +64,9 @@
 
     public IEnumerable<WalletTransaction> Transactions { get; set; } = new List<WalletTransaction>();
 
-    public string AvailableBalance => FormatMoney(WalletAccount?.AvailableBalance ?? 0);
-    public string BlockedBalance => FormatMoney(WalletAccount?.BlockedBalance ?? 0);
-    public string FutureBalance => FormatMoney(WalletAccount?.FutureBalance ?? 0);
-
-    private string FormatMoney(long amount)
-    {
-        return amount > 0 ? string.Format("{0:#.00}", Convert.ToDecimal(amount) / 100) : "0,00";
-    }
+    public string AvailableBalance => MoneyFormatter.Format(WalletAccount?.AvailableBalance ?? 0);
+    public string BlockedBalance => MoneyFormatter.Format(WalletAccount?.BlockedBalance ?? 0);
+    public string FutureBalance => MoneyFormatter.Format(WalletAccount?.FutureBalance ?? 0);
 
     public WalletAccount WalletAccount { get; set; }
 
