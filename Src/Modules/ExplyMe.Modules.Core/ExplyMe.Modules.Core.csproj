@@ -9,8 +9,4 @@
     <ProjectReference Include="..\..\ExplyMe.Infrastructure\ExplyMe.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\ViewModels\" />
-  </ItemGroup>
-
 </Project>
