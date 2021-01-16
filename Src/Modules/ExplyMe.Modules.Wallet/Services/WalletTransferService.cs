@@ -57,6 +57,7 @@ namespace ExplyMe.Modules.Wallet.Services
 
             // Insere a operação pendente no banco
             await WalletTransactionStore.CreateAsync(walletTransaction, connection, dbTransaction);
+            await dbTransaction.CommitAsync();
 
             return WalletOperationResult.Ok(walletTransaction.Id);
         }

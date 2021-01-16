@@ -7,12 +7,14 @@
         <div class="card-body">
             @foreach (var transaction in Transactions)
             {
-                <div class="d-block border-bottom row">
-                    <div class="col">
-                        @transaction.SoftDescriptor
-                    </div>
-                    <div class="col-2">
-                        @transaction.Amount
+                <div class="d-block border-bottom">
+                    <div class="row">
+                        <div class="col">
+                            @transaction.SoftDescriptor
+                        </div>
+                        <div class="col-2 @GetAmountColor(transaction.Amount)">
+                            @transaction.Amount
+                        </div>
                     </div>
                 </div>
             }
@@ -27,4 +29,9 @@ else
 @code {
     [Parameter]
     public IEnumerable<WalletTransaction> Transactions { get; set; } = new List<WalletTransaction>();
+
+    private string GetAmountColor(long amount)
+    {
+        return amount >= 0 ? "text-success" : "text-danger";
+    }
 }

@@ -18,7 +18,7 @@ namespace ExplyMe.Modules.Wallet.Data
 @"INSERT INTO [WalletTransaction] 
     ([Id], [Status], [FromId], [ToId], [CreatedAt], [ExecutedAt], [VoidedAt], [Amount], [SoftDescriptor])
 VALUES
-    (@Id], @Status, @FromId, @ToId, @CreatedAt, @ExecutedAt, @VoidedAt, @Amount, @SoftDescriptor])",
+    (@Id, @Status, @FromId, @ToId, @CreatedAt, @ExecutedAt, @VoidedAt, @Amount, @SoftDescriptor)",
                     walletTransaction, transaction: dbTransaction);
 
             return walletTransaction;

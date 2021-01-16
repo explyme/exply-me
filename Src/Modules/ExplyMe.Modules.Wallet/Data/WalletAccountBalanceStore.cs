@@ -21,8 +21,8 @@ namespace ExplyMe.Modules.Wallet.Data
                 isIncrement: true, 
                 accountId: accountId, 
                 amountToBeCalculated: amount,
-                connection: null,
-                dbTransaction: null);
+                connection,
+                dbTransaction);
         }
 
         public async Task DecrementAvailableBalanceAsync(
@@ -36,8 +36,8 @@ namespace ExplyMe.Modules.Wallet.Data
                 isIncrement: false,
                 accountId: accountId,
                 amountToBeCalculated: amount,
-                connection: null,
-                dbTransaction: null);
+                connection,
+                dbTransaction);
         }
 
         #endregion
@@ -51,8 +51,8 @@ namespace ExplyMe.Modules.Wallet.Data
                 isIncrement: true,
                 accountId: accountId,
                 amountToBeCalculated: amount,
-                connection: null,
-                dbTransaction: null);
+                connection,
+                dbTransaction);
         }
 
         public async Task DecrementBlockedBalanceAsync(long accountId, long amount, SqlConnection connection, DbTransaction dbTransaction)
@@ -62,8 +62,8 @@ namespace ExplyMe.Modules.Wallet.Data
                 isIncrement: false,
                 accountId: accountId,
                 amountToBeCalculated: amount,
-                connection: null,
-                dbTransaction: null);
+                connection,
+                dbTransaction);
         }
 
         #endregion
@@ -81,8 +81,8 @@ namespace ExplyMe.Modules.Wallet.Data
                 isIncrement: true,
                 accountId: accountId,
                 amountToBeCalculated: amount,
-                connection: null,
-                dbTransaction: null);
+                connection,
+                dbTransaction);
         }
         public async Task DecrementFutureBalanceAsync(
             long accountId, 
@@ -95,8 +95,8 @@ namespace ExplyMe.Modules.Wallet.Data
                 isIncrement: false,
                 accountId: accountId,
                 amountToBeCalculated: amount,
-                connection: null,
-                dbTransaction: null);
+                connection,
+                dbTransaction);
         }
 
         #endregion
@@ -112,7 +112,7 @@ namespace ExplyMe.Modules.Wallet.Data
         {
             var userBalance = await connection.ExecuteScalarAsync<long>(
                     $"SELECT TOP 1 [{balanceField}] from [WalletAccount] where [WalletAccount].Id = @accountId",
-                    new { accountId });
+                    new { accountId }, transaction: dbTransaction);
 
             var newBalance = isIncrement 
                 ? userBalance + amountToBeCalculated
@@ -120,7 +120,7 @@ namespace ExplyMe.Modules.Wallet.Data
 
             await connection.ExecuteAsync(
                     $"UPDATE [WalletAccount] SET [{balanceField}] = @newBalance where [WalletAccount].Id = @accountId",
-                    new { newBalance }, transaction: dbTransaction);
+                    new { newBalance, accountId }, transaction: dbTransaction);
         }
         #endregion
     }

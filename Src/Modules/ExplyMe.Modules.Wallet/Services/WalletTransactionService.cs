@@ -44,6 +44,7 @@ namespace ExplyMe.Modules.Wallet.Services
 
             await WalletTransactionStore.CreateAsync(transaction, connection, dbTransaction);
             await WalletAccountBalanceStore.IncrementAvailableBalanceAsync(accountId, amount, connection, dbTransaction);
+            await dbTransaction.CommitAsync();
         }
 
         public async Task<IEnumerable<WalletTransaction>> FindByAccountAsync(long walletId)
@@ -52,7 +53,7 @@ namespace ExplyMe.Modules.Wallet.Services
             await connection.OpenAsync();
             using var dbTransaction = await connection.BeginTransactionAsync(IsolationLevel.ReadUncommitted, CancellationToken.None);
 
-            var query = @"SELECT * FROM [WalletTransaction] WHERE [WalletTransaction].[ToId] = @walletId";
+            var query = @"SELECT * FROM [WalletTransaction] WHERE [WalletTransaction].[ToId] = @walletId OR [WalletTransaction].[FromId] = @walletId";
 
             var result = await connection.QueryAsync<WalletTransaction>(query, new { walletId }, transaction: dbTransaction);
 
