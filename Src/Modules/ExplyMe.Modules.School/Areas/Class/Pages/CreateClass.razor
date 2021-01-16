@@ -1,8 +1,107 @@
 ﻿@page "/school/class/create"
 @attribute [Authorize]
 
-<h3>CreateClass</h3>
+    <div class="container">
+        <h3 class="pt-3 pb-3">Cadastrar Nova Turma</h3>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label id="labelNameClass" class="form-label">Nome da Turma</label>
+                    <input id="inputNameClass" class="form-control" type="text">
+                </div>
+                <div class="mb-3">
+                    <label id="labelDescClass" class="form-label">Descrição</label>
+                    <input id="inputDescClass" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label id="labelSchoolClass" class="form-label">Escola</label>
+                    <input id="inputSchoolClass" class="form-control" type="text" disabled>
+                </div>
+                <div class="mb-3">
+                    <label id="labelTeacherClass" class="form-label">Professor</label>
+                    <div class="input-group">
+                        <select class="form-select" id="inputGroupTeacherClass">
+                            <option selected>Selecione o professor...</option>
+                            <option value="1">Professor 1</option>
+                            <option value="2">Professor 2</option>
+                            <option value="3">Professor 3</option>
+                        </select>
+                        <button id="btnAddTeacherClass" class="btn btn-outline-secondary" type="button">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label id="labelStartDateClass" class="form-label">Data Início</label>
+                <input id="inputStartDateClasse" class="form-control" type="date">
+            </div>
+            <div class="col-sm-3">
+                <label id="labelEndDateClass" class="form-label">Data Fim</label>
+                <input id="inputEndDateClass" class="form-control" type="date">
+            </div>
+            <div class="col-sm-6">
+                <label id="labelCourseClass" class="form-label">Curso</label>
+                <div class="input-group">
+                    <select class="form-select" id="inputGroupCouseClass">
+                        <option selected>Selecione o curso...</option>
+                        <option value="1">Curso 1</option>
+                        <option value="2">Curso 2</option>
+                        <option value="3">Professor 3</option>
+                    </select>
+                    <button id="btnAddCourseClass" class="btn btn-outline-secondary" type="button">Adicionar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col">
+                <div class="mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Escolas
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Escola 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Professores
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Professor 1</li>
+                            <li class="list-group-item">Professor 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Cursos
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Curso 1</li>
+                            <li class="list-group-item">Curso 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-@code {
+        </div>
+    </div>
 
-}
+
+
+    @code {
+
+        public static string Title => "Turmas";
+
+    }

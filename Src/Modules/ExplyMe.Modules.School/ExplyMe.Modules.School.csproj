@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Class\Domain\Entities\" />
     <Folder Include="Data\" />
     <Folder Include="Domain\" />
     <Folder Include="Services\" />
