@@ -2,27 +2,59 @@
 @attribute [Authorize]
 
 @inject ISchoolFinder SchoolFinder
+@inject NavigationManager NavigationManager
 
-@*<div class="row">
-        <div class="col-10">
-            @foreach (var notification in Notifications)
-            {
-                <div class="d-block card border mb-2 notification-link">
-                    <a class="row p-3 text-decoration-none text-primary" href="@notification.Url">
-                        <div class="col-1">
-                            <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
-                        </div>
-                        <div class="col">
-                            <span>@((MarkupString)notification.CompiledMessage)</span>
-                        </div>
-                    </a>
+
+<div class="row">
+    <div class="col-10">
+        @foreach (var school in Schools)
+        {
+            <div class="d-block card border mb-2">
+                <div class="row">
+                    <div class="col m-2">
+                        <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                    </div>
+                    <div class="col m-2">
+                        <span>@school.DisplayName</span>
+                    </div>
+                    <div class="col m-2">
+                        <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm">Detalhes da Escola</button>
+                    </div>
+                    <div class="col m-2">
+                        <button @onclick=" (() => ClassAssociate(school.Id))" class="btn btn-outline-success btn-sm">Associar Turma</button>
+                    </div>
                 </div>
-            }
-        </div>
-</div>*@
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="row">
+    <a href="school/create">
+        <span class="btn btn-primary">Criar Escola</span>
+    </a>
+</div>
 
 @code {
-    public static string Title => "Detalhes da Escola";
+    public static string Title => "Lista das Escolas";
 
-    private IEnumerable<SchoolEntity> Notifications { get; set; } = new List<SchoolEntity>();
+    private IEnumerable<SchoolEntity> Schools { get; set; } = new List<SchoolEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Schools = await SchoolFinder.FindAllAsync();
+    }
+
+    private void SchoolDetails(long schoolId)
+    {
+        var urlToRedirect = $"school/{schoolId}/details";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
+
+    private void ClassAssociate(long schoolId)
+    {
+        var urlToRedirect = $"school/{schoolId}/class/associate";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
 }
