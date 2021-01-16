@@ -16,6 +16,8 @@ namespace ExplyMe.Modules.Wallet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IWalletAccountService, WalletAccountService>();
+
+            services.AddTransient<IWalletTransferService, WalletTransferService>();
         }
     }
 }
