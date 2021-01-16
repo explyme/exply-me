@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExplyMe.Modules.Core.Areas.Account.Controllers
@@ -71,6 +72,38 @@ namespace ExplyMe.Modules.Core.Areas.Account.Controllers
             {
                 ModelState.AddModelError("message", "Erro ao realizar login");
                 return Ok(model);
+            }
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register(RegisterViewModel request)
+        {
+            //TODO: Verificar modelstate
+
+            var userCheck = await UserManager.FindByEmailAsync(request.Email);
+
+            if (userCheck != null)
+                return BadRequest("Usuário já existe");
+
+            var user = new User
+            {
+                Email = request.Email,
+                FullName = request.FullName
+            };
+
+            var result = await UserManager.CreateAsync(user, request.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                if (result.Errors.Count() > 0)
+                    foreach (var error in result.Errors)
+                        ModelState.AddModelError("message", error.Description);
+
+                return BadRequest(ModelState);
             }
         }
     }
