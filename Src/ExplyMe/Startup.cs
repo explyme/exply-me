@@ -1,4 +1,5 @@
 using ExplyMe.DependencyInjection;
+using ExplyMe.Extensions;
 using ExplyMe.Infrastructure.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,8 @@ namespace ExplyMe
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddInfrastructureModule(Configuration);
+
+            services.AddCustomizedIdentity();
 
             ModuleInjector
                 .CreateInjector()
