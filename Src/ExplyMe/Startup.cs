@@ -1,6 +1,8 @@
 using ExplyMe.DependencyInjection;
 using ExplyMe.Extensions;
 using ExplyMe.Infrastructure.Modules;
+using ExplyMe.Infrastructure.Services;
+using ExplyMe.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +36,9 @@ namespace ExplyMe.WebApp
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddMemoryCache();
+            services.AddSingleton<IAppSettingsService, AppSettingsService>();
 
             ModuleInjector
                 .CreateInjector()
