@@ -1,0 +1,16 @@
+﻿<div class="mx-auto mt-5" style="width: 400px">
+    <h4 class="text-center">Bem vindo de volta</h4>
+    <a asp-controller="Auth" asp-action="Register" class="text-center d-block">Ainda não tem uma conta?</a>
+    <div class="card p-3 px-5">
+        <form asp-controller="Auth" asp-action="Login" method="post">
+            <label class="form-label">Email</label><br />
+            <input asp-for="Email" class="form-control" type="text" /><br />
+
+            <label>Senha</label><br />
+            <input asp-for="Password" class="form-control" type="password" /><br />
+            <div class="d-grid">
+                <button class="btn btn-block btn-primary" type="submit">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
