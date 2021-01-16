@@ -1,0 +1,30 @@
+﻿@if (Transactions.Count() > 0)
+{
+    <div class="card">
+        <div class="card-header">
+            Transações
+        </div>
+        <div class="card-body">
+            @foreach (var transaction in Transactions)
+            {
+                <div class="d-block border-bottom row">
+                    <div class="col">
+                        @transaction.SoftDescriptor
+                    </div>
+                    <div class="col-2">
+                        @transaction.Amount
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <h4>Nenhuma transação disponível</h4>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<WalletTransaction> Transactions { get; set; } = new List<WalletTransaction>();
+}
