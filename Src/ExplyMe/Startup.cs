@@ -3,6 +3,7 @@ using ExplyMe.Extensions;
 using ExplyMe.Infrastructure.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +25,15 @@ namespace ExplyMe
             services.AddServerSideBlazor();
             services.AddInfrastructureModule(Configuration);
 
+            services.AddAuthorization();
             services.AddCustomizedIdentity();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.ConsentCookie.IsEssential = true;
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
             ModuleInjector
                 .CreateInjector()
@@ -48,6 +57,9 @@ namespace ExplyMe
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
