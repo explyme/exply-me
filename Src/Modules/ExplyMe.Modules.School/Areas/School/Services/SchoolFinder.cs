@@ -3,6 +3,7 @@ using ExplyMe.Infrastructure.Data;
 using ExplyMe.Modules.School.Areas.School.Domain.Entities;
 using ExplyMe.Modules.School.Areas.School.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ExplyMe.Modules.School.Areas.School.Services
@@ -21,6 +22,16 @@ namespace ExplyMe.Modules.School.Areas.School.Services
 
             const string query = @"SELECT * FROM [School] WHERE Id = @schoolId";
             var result = await connection.QueryFirstOrDefaultAsync<SchoolEntity>(query, new { schoolId });
+
+            return result;
+        }
+
+        public async Task<IEnumerable<SchoolEntity>> FindAllAsync()
+        {
+            using var connection = SqlConnectionFactory.CreateReadConnection();
+
+            const string query = @"SELECT * FROM [School]";
+            var result = await connection.QueryAsync<SchoolEntity>(query);
 
             return result;
         }
