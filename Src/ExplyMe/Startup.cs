@@ -40,6 +40,7 @@ namespace ExplyMe.WebApp
                 .Inject<Modules.Core.ModuleInitializer>()
                 .Inject<Modules.Notification.ModuleInitializer>()
                 .Inject<Modules.Wallet.ModuleInitializer>()
+                .Inject<Modules.Call.ModuleInitializer>()
                 .BindServices(services);
         }
 
