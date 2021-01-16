@@ -1,0 +1,21 @@
+﻿@model ExplyMe.Modules.Core.Areas.Account.ViewModels.RegisterViewModel
+
+<div class="mx-auto mt-5" style="width: 400px">
+    <h4 class="text-center">Crie sua conta agora mesmo!</h4>
+    <a asp-controller="Auth" asp-action="Login" class="text-center d-block">Já possui uma conta? Entre agora</a>
+    <div class="card p-3 px-5">
+        <form asp-controller="Auth" asp-action="Register" method="post">
+            <label class="form-label">Nome completo</label><br />
+            <input asp-for="FullName" class="form-control" type="text" /><br />
+
+            <label class="form-label">Email</label><br />
+            <input asp-for="Email" class="form-control" type="email" /><br />
+
+            <label>Senha</label><br />
+            <input asp-for="Password" class="form-control" type="password" /><br />
+            <div class="d-grid">
+                <button class="btn btn-block btn-primary" type="submit">Criar conta</button>
+            </div>
+        </form>
+    </div>
+</div>

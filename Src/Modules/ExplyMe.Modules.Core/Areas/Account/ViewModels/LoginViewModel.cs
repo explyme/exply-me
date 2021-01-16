@@ -1,4 +1,4 @@
-﻿namespace ExplyMe.Modules.Core.Areas.ViewModels
+﻿namespace ExplyMe.Modules.Core.Areas.Account.ViewModels
 {
     public class LoginViewModel
     {

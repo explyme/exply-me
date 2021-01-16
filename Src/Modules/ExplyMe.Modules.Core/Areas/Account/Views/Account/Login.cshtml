@@ -1,7 +1,17 @@
-﻿<div class="mx-auto mt-5" style="width: 400px">
+﻿@model ExplyMe.Modules.Core.Areas.Account.ViewModels.LoginViewModel
+
+<div class="mx-auto mt-5" style="width: 400px">
     <h4 class="text-center">Bem vindo de volta</h4>
     <a asp-controller="Auth" asp-action="Register" class="text-center d-block">Ainda não tem uma conta?</a>
     <div class="card p-3 px-5">
+
+        @if (@ViewData.ModelState["message"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.ValidationSummary("Erros:")
+            </div>
+        }
+
         <form asp-controller="Auth" asp-action="Login" method="post">
             <label class="form-label">Email</label><br />
             <input asp-for="Email" class="form-control" type="text" /><br />

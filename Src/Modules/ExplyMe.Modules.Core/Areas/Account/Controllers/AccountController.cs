@@ -1,4 +1,4 @@
-﻿using ExplyMe.Modules.Core.Areas.ViewModels;
+﻿using ExplyMe.Modules.Core.Areas.Account.ViewModels;
 using ExplyMe.Modules.Core.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
