@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExplyMe.Modules.Core", "Src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExplyMe.Modules.Notification", "Src\Modules\ExplyMe.Modules.Notification\ExplyMe.Modules.Notification.csproj", "{03B79801-AC34-4616-9721-AD5342D8891C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExplyMe.Modules.School", "Src\Modules\ExplyMe.Modules.School\ExplyMe.Modules.School.csproj", "{FE5A2973-1881-4841-AC60-41C659BCF3AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{03B79801-AC34-4616-9721-AD5342D8891C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03B79801-AC34-4616-9721-AD5342D8891C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03B79801-AC34-4616-9721-AD5342D8891C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5A2973-1881-4841-AC60-41C659BCF3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5A2973-1881-4841-AC60-41C659BCF3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5A2973-1881-4841-AC60-41C659BCF3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5A2973-1881-4841-AC60-41C659BCF3AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{226EBC63-A9EA-4CE1-9172-4B5FC966A93C} = {B595D1EF-766F-4E07-813D-E7E63CAADF2C}
 		{52300416-2374-4043-AFA7-BFD09BFF9909} = {226EBC63-A9EA-4CE1-9172-4B5FC966A93C}
 		{03B79801-AC34-4616-9721-AD5342D8891C} = {226EBC63-A9EA-4CE1-9172-4B5FC966A93C}
+		{FE5A2973-1881-4841-AC60-41C659BCF3AB} = {226EBC63-A9EA-4CE1-9172-4B5FC966A93C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5462B12-D3B6-452F-AA5E-848D3BAB217A}

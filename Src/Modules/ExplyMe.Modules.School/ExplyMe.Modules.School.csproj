@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\" />
+    <Folder Include="Data\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ExplyMe.Infrastructure\ExplyMe.Infrastructure.csproj" />
+  </ItemGroup>
+  
+</Project>
