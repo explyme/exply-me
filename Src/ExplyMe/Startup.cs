@@ -1,4 +1,5 @@
 using ExplyMe.DependencyInjection;
+using ExplyMe.Infrastructure.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,11 @@ namespace ExplyMe
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddInfrastructureModule(Configuration);
+
+            ModuleInjector
+                .CreateInjector()
+                .Inject<Modules.Core.ModuleInitializer>()
+                .BindServices(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,6 +51,8 @@ namespace ExplyMe
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            ModuleInjector.ConfigureServices(app, env);
         }
     }
 }
