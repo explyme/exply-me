@@ -20,7 +20,7 @@ namespace ExplyMe.Modules.Core.Domain.Entities
         public int AccessFailedCount { get; set; }
         public string FullName { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         public IList<UserRole> Roles { get; set; } = new List<UserRole>();
     }
