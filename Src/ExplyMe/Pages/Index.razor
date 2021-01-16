@@ -1,8 +1,30 @@
 ﻿@page "/"
 @attribute [Authorize]
+@inject UserManager<User> UserManager
 
-<h1>Bem vindo ao exply me</h1>
+<AuthorizeView>
+    <h1>Bem vindo ao exply me</h1>
+
+    <h3>UserId:</h3>
+    @UserManager.GetUserId(context.User)
+
+    <h3>Nome:</h3>
+    @CurrentUser?.FullName
+
+</AuthorizeView>
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; }
+
+    private User CurrentUser { get; set; }
+
     public static string Title => "Início";
+
+    protected override async Task OnInitializedAsync()
+    {
+        //var user = UserManager.GetUserAsync(State.User);
+
+        CurrentUser = await UserManager.GetUserAsync((await AuthState).User);
+    }
 }

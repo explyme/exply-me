@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ExplyMe.Modules.Core.Areas.Account.Controllers
@@ -60,7 +61,6 @@ namespace ExplyMe.Modules.Core.Areas.Account.Controllers
 
             if (result.Succeeded)
             {
-                //TODO: adicionar claims await UserManager.AddClaimAsync(user, new Claim("UserRole", "Admin"));
                 return Redirect("/");
             }
             else if (result.IsLockedOut)
