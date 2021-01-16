@@ -19,7 +19,6 @@ namespace ExplyMe.Modules.Core.Identity
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
         }
 
         public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
