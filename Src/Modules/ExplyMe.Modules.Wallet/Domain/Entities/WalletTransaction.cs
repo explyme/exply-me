@@ -13,7 +13,7 @@ namespace ExplyMe.Modules.Wallet.Domain.Entities
 
         public Guid Id { get; set; }
         public TransactionStatusEnum Status { get; set; }
-        public long FromId { get; set; }
+        public long? FromId { get; set; }
         public long ToId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ExecutedAt { get; set; }

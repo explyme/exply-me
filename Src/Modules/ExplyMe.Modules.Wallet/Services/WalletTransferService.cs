@@ -1,13 +1,11 @@
-﻿using Dapper;
-using ExplyMe.Infrastructure.Data;
+﻿using ExplyMe.Infrastructure.Data;
+using ExplyMe.Modules.Wallet.Data.Interfaces;
 using ExplyMe.Modules.Wallet.Domain;
 using ExplyMe.Modules.Wallet.Domain.Entities;
 using ExplyMe.Modules.Wallet.Domain.Enums;
 using ExplyMe.Modules.Wallet.Services.Interfaces;
 using System;
 using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,80 +14,56 @@ namespace ExplyMe.Modules.Wallet.Services
     public class WalletTransferService : IWalletTransferService
     {
         public ISqlConnectionFactory SqlConnectionFactory { get; }
+        public IWalletAccountBalanceStore WalletAccountBalanceStore { get; }
+        public IWalletTransactionStore WalletTransactionStore { get; }
 
         public WalletTransferService(
-            ISqlConnectionFactory sqlConnectionFactory)
+            ISqlConnectionFactory sqlConnectionFactory,
+            IWalletAccountBalanceStore walletAccountBalanceStore,
+            IWalletTransactionStore walletTransactionStore)
         {
             SqlConnectionFactory = sqlConnectionFactory ?? throw new ArgumentNullException(nameof(sqlConnectionFactory));
-        }
-
-        private async Task UpdateBalance(
-            string balanceField,
-            long accountId,
-            long amountToBeCalculated,
-            SqlConnection connection,
-            DbTransaction transaction)
-        {
-            var userBalance = await connection.ExecuteScalarAsync<long>(
-                    $"SELECT TOP 1 [{balanceField}] from [WalletAccount] where [WalletAccount].Id = @accountId",
-                    new { accountId });
-
-            var newBalance = userBalance + amountToBeCalculated;
-
-            await connection.ExecuteAsync(
-                    $"UPDATE [WalletAccount] SET [{balanceField}] = @newBalance where [WalletAccount].Id = @accountId",
-                    new { newBalance }, transaction: transaction);
-        }
-
-        private async Task InsertOperationAsync(
-            WalletTransaction walletTransaction,
-            SqlConnection connection,
-            DbTransaction transaction)
-        {
-            await connection.ExecuteAsync(
-@"INSERT INTO [WalletTransaction] 
-    ([Id], [Status], [FromId], [ToId], [CreatedAt], [ExecutedAt], [VoidedAt], [Amount], [SoftDescriptor])
-VALUES
-    (@Id], @Status, @FromId, @ToId, @CreatedAt, @ExecutedAt, @VoidedAt, @Amount, @SoftDescriptor])",
-                    walletTransaction, transaction: transaction);
+            WalletAccountBalanceStore = walletAccountBalanceStore ?? throw new ArgumentNullException(nameof(walletAccountBalanceStore));
+            WalletTransactionStore = walletTransactionStore ?? throw new ArgumentNullException(nameof(walletTransactionStore));
         }
 
         public async Task<WalletOperationResult> Transfer(
-            long fromAccount, 
-            long toAccount, 
+            long originAccount, 
+            long destinationAccount, 
             long amount,
             string softDescriptor)
         {
             using var connection = SqlConnectionFactory.CreateWriteConnection();
             await connection.OpenAsync();
-            using var transaction = await connection.BeginTransactionAsync(IsolationLevel.ReadCommitted, CancellationToken.None);
+            using var dbTransaction = await connection.BeginTransactionAsync(IsolationLevel.ReadCommitted, CancellationToken.None);
 
             // Debita o valor do saldo disponível da conta do depositante
-            await UpdateBalance("AvailableBalance", amount * -1, fromAccount, connection, transaction);
+            await WalletAccountBalanceStore.DecrementAvailableBalanceAsync(amount, originAccount, connection, dbTransaction);
+
             // Credita o valor na agente bloqueada do depositante
-            await UpdateBalance("BlockedBalance", amount, fromAccount, connection, transaction);
+            await WalletAccountBalanceStore.IncrementBlockedBalanceAsync(amount, originAccount, connection, dbTransaction);
 
             // Credita o valor na agenda futura do recebedor
-            await UpdateBalance("FutureBalance", amount, toAccount, connection, transaction);
+            await WalletAccountBalanceStore.IncrementFutureBalanceAsync(amount, destinationAccount, connection, dbTransaction);
 
             var walletTransaction = new WalletTransaction
             {
                 Status = TransactionStatusEnum.Pending,
                 Amount = amount,
-                FromId = fromAccount,
-                ToId = toAccount,
+                FromId = originAccount,
+                ToId = destinationAccount,
                 SoftDescriptor = softDescriptor
             };
 
             // Insere a operação pendente no banco
-            await InsertOperationAsync(walletTransaction, connection, transaction);
+            await WalletTransactionStore.CreateAsync(walletTransaction, connection, dbTransaction);
 
             return WalletOperationResult.Ok(walletTransaction.Id);
         }
 
         public Task<WalletOperationResult> Execute(Guid transactionId)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<WalletOperationResult>(null);
         }
 
         public Task<WalletOperationResult> Void(Guid transactionId)
