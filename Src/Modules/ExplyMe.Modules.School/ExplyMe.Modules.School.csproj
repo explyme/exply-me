@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Class\Domain\Entities\" />
     <Folder Include="Data\" />
     <Folder Include="Domain\" />
     <Folder Include="Services\" />
@@ -14,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.12.1" />
   </ItemGroup>
 
   <ItemGroup>

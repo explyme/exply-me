@@ -1,4 +1,6 @@
 ﻿using ExplyMe.Infrastructure.Modules;
+using ExplyMe.Modules.School.Areas.Class.Services;
+using ExplyMe.Modules.School.Areas.Class.Services.Interfaces;
 using ExplyMe.Modules.School.Areas.School.Services;
 using ExplyMe.Modules.School.Areas.School.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +19,7 @@ namespace ExplyMe.Modules.School
         {
             services.AddTransient<ISchoolCreator, SchoolCreator>();
             services.AddTransient<ISchoolFinder, SchoolFinder>();
+            services.AddTransient<IClassCreator, ClassCreator>();
         }
     }
 }

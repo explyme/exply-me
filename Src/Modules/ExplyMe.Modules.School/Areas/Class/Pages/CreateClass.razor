@@ -1,23 +1,29 @@
-﻿@page "/school/class/create"
+﻿@page "/school/{SchoolId:long}/class/associate"
 @attribute [Authorize]
 
+@inject IClassCreator ClassCreator
+@inject ISchoolFinder SchoolFinder
+@inject NavigationManager NavigationManager
+
+
+<EditForm Model="@Class" OnSubmit="(async () => await Submit())">
     <div class="container">
         <h3 class="pt-3 pb-3">Cadastrar Nova Turma</h3>
         <div class="row">
             <div class="col">
                 <div class="mb-3">
                     <label id="labelNameClass" class="form-label">Nome da Turma</label>
-                    <input id="inputNameClass" class="form-control" type="text">
+                    <input id="inputNameClass" class="form-control" type="text" @bind-value="Class.NameClass">
                 </div>
                 <div class="mb-3">
                     <label id="labelDescClass" class="form-label">Descrição</label>
-                    <input id="inputDescClass" class="form-control" type="text">
+                    <input id="inputDescClass" class="form-control" type="text" @bind-value="Class.Description">
                 </div>
             </div>
             <div class="col">
                 <div class="mb-3">
                     <label id="labelSchoolClass" class="form-label">Escola</label>
-                    <input id="inputSchoolClass" class="form-control" type="text" disabled>
+                    <input id="inputSchoolClass" class="form-control" type="text" disabled value="@School.DisplayName" />
                 </div>
                 <div class="mb-3">
                     <label id="labelTeacherClass" class="form-label">Professor</label>
@@ -28,7 +34,6 @@
                             <option value="2">Professor 2</option>
                             <option value="3">Professor 3</option>
                         </select>
-                        <button id="btnAddTeacherClass" class="btn btn-outline-secondary" type="button">Adicionar</button>
                     </div>
                 </div>
             </div>
@@ -36,11 +41,11 @@
         <div class="row">
             <div class="col-sm-3">
                 <label id="labelStartDateClass" class="form-label">Data Início</label>
-                <input id="inputStartDateClasse" class="form-control" type="date">
+                <input id="inputStartDateClasse" class="form-control" type="date" @bind-value="Class.StartDate">
             </div>
             <div class="col-sm-3">
                 <label id="labelEndDateClass" class="form-label">Data Fim</label>
-                <input id="inputEndDateClass" class="form-control" type="date">
+                <input id="inputEndDateClass" class="form-control" type="date" @bind-value="Class.EndDate">
             </div>
             <div class="col-sm-6">
                 <label id="labelCourseClass" class="form-label">Curso</label>
@@ -51,7 +56,6 @@
                         <option value="2">Curso 2</option>
                         <option value="3">Professor 3</option>
                     </select>
-                    <button id="btnAddCourseClass" class="btn btn-outline-secondary" type="button">Adicionar</button>
                 </div>
             </div>
         </div>
@@ -60,19 +64,7 @@
                 <div class="mb-3">
                     <div class="card">
                         <div class="card-header">
-                            Escolas
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Escola 1</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            Professores
+                            <strong>Professores</strong>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Professor 1</li>
@@ -80,12 +72,15 @@
                         </ul>
                     </div>
                 </div>
+                <div class="mb-3">
+                    <button type="submit" class="d-block btn btn-outline-success btn-lg">Cadastrar</button>
+                </div>
             </div>
             <div class="col">
                 <div class="mb-3">
                     <div class="card">
                         <div class="card-header">
-                            Cursos
+                            <strong>Cursos</strong>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Curso 1</li>
@@ -94,14 +89,31 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+</EditForm>
 
 
 
-    @code {
+@code {
 
-        public static string Title => "Turmas";
+    public static string Title => "Turmas";
+
+    [Parameter]
+    public long SchoolId { get; set; }
+
+    private ClassEntity Class { get; set; } = new ClassEntity();
+    public SchoolEntity School { get; set; } = new SchoolEntity();
+
+    protected override async Task OnInitializedAsync()
+    {
+        School = await SchoolFinder.FindByIdAsync(SchoolId);
+    }
+
+    private async Task Submit()
+    {
+        var associatedClass = await ClassCreator.CreateAsync(Class);
 
     }
+
+}
