@@ -1,4 +1,7 @@
 ﻿@inject IJSRuntime JsRuntime
+@using Twilio.Jwt.AccessToken
+@using ExplyMe.Infrastructure.Services.Interfaces
+@inject IAppSettingsService AppSettings
 
 <main class="mt-3 mx-auto" style="max-width: 800px">
     <div class="p-2 mb-2 d-block rounded-4 mt-2">
@@ -120,6 +123,18 @@
 @functions {
     async Task StartCall()
     {
-        await JsRuntime.InvokeVoidAsync("StartCall");
+        var accountSid = AppSettings.Get("TwilioAccountSid");
+        var apiSid = AppSettings.Get("TwilioApiSid");
+        var apiSecret = AppSettings.Get("TwilioApiSecret");
+
+        var token = new Token(
+            accountSid,
+            apiSid,
+            apiSecret,
+            Guid.NewGuid().ToString(),
+            grants: new HashSet<IGrant> { new VideoGrant() { Room = RoomData.TwilioUniqueName } })
+        .ToJwt();
+
+        await JsRuntime.InvokeVoidAsync("StartCall", token, RoomData.TwilioUniqueName);
     }
 }

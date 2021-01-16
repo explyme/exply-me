@@ -37,7 +37,7 @@ namespace ExplyMe.Modules.Call.Data
 @"INSERT INTO [CallRoom]
     ([Id], [ExpireAt], [CreatedAt], [TwilioSid], [TwilioUniqueName])
 VALUES
-    (@Id, @ExpireAt@, @CreatedAt, @TwilioSid, @TwilioUniqueName)";
+    (@Id, @ExpireAt, @CreatedAt, @TwilioSid, @TwilioUniqueName)";
 
             await connection.ExecuteAsync(query, room);
         }
@@ -45,9 +45,9 @@ VALUES
         public async Task AssociateUserToRoom(Guid roomId, long userId)
         {
             using var connection = SqlConnectionFactory.CreateReadConnection();
-            var query = @"INSERT INTO [CallRoomAllowedUsers]b([RoomID], [UserId]) VALUES (@roomID], @userId)";
+            var query = @"INSERT INTO [CallRoomAllowedUsers] ([RoomID], [UserId]) VALUES (@roomId, @userId)";
 
-            await connection.ExecuteAsync(query, new { userId });
+            await connection.ExecuteAsync(query, new { roomId, userId });
         }
     }
 }

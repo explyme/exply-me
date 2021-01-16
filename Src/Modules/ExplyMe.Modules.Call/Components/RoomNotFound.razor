@@ -1,5 +1,16 @@
-﻿<h3>Sala não encontrada</h3>
+﻿@using ExplyMe.Modules.Call.Services.Interfaces
+@inject IRoomCreator RoomCreator
+@inject NavigationManager Navigation
+
+<h3>Sala não encontrada</h3>
+
+<button class="btn btn-primary" @onclick="(async () => await CreateRoom())">Criar Sala</button>
 
 @code {
+    async Task CreateRoom()
+    {
+        var room = await RoomCreator.CreateP2PAsync(DateTime.UtcNow.AddYears(2), 0, 0);
 
+        Navigation.NavigateTo($"call/room/{room.Id.ToString()}", true);
+    }
 }
