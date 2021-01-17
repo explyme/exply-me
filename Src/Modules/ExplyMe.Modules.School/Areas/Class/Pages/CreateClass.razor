@@ -7,90 +7,74 @@
 
 
 <EditForm Model="@Class" OnSubmit="(async () => await Submit())">
-    <div class="container">
-        <h3 class="pt-3 pb-3">Cadastrar Nova Turma</h3>
-        <div class="row">
-            <div class="col">
-                <div class="mb-3">
-                    <label id="labelNameClass" class="form-label">Nome da Turma</label>
-                    <input id="inputNameClass" class="form-control" type="text" @bind-value="Class.NameClass">
-                </div>
-                <div class="mb-3">
-                    <label id="labelDescClass" class="form-label">Descrição</label>
-                    <input id="inputDescClass" class="form-control" type="text" @bind-value="Class.Description">
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3">
-                    <label id="labelSchoolClass" class="form-label">Escola</label>
-                    <input id="inputSchoolClass" class="form-control" type="text" disabled value="@School.DisplayName" />
-                </div>
-                <div class="mb-3">
-                    <label id="labelTeacherClass" class="form-label">Professor</label>
-                    <div class="input-group">
-                        <select class="form-select" id="inputGroupTeacherClass">
-                            <option selected>Selecione o professor...</option>
-                            <option value="1">Professor 1</option>
-                            <option value="2">Professor 2</option>
-                            <option value="3">Professor 3</option>
-                        </select>
+    <div class="card mx-auto shadow mt-4" style="width: 1200px">
+        <div class="card-body">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col">
+                        <br>
+                        <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/399/full/undraw_exams_g4ow.png?1610857380" style="width: 300px" />
+                        <br>
+                        <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Cadastro de Turma</a>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <label id="labelStartDateClass" class="form-label">Data Início</label>
-                <input id="inputStartDateClasse" class="form-control" type="date" @bind-value="Class.StartDate">
-            </div>
-            <div class="col-sm-3">
-                <label id="labelEndDateClass" class="form-label">Data Fim</label>
-                <input id="inputEndDateClass" class="form-control" type="date" @bind-value="Class.EndDate">
-            </div>
-            <div class="col-sm-6">
-                <label id="labelCourseClass" class="form-label">Curso</label>
-                <div class="input-group">
-                    <select class="form-select" id="inputGroupCouseClass">
-                        <option selected>Selecione o curso...</option>
-                        <option value="1">Curso 1</option>
-                        <option value="2">Curso 2</option>
-                        <option value="3">Professor 3</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row pt-4">
-            <div class="col">
-                <div class="mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Professores</strong>
+
+                    <div class="col-8">
+                        <div class="mb-3">
+                            <label id="labelNameClass" class="form-label">Nome da Turma:</label>
+                            <input id="inputNameClass" class="form-control" type="text" @bind-value="Class.NameClass">
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Professor 1</li>
-                            <li class="list-group-item">Professor 2</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="d-block btn btn-outline-success btn-lg">Cadastrar</button>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Cursos</strong>
+                        <div class="mb-3">
+                            <label id="labelDescClass" class="form-label">Descrição:</label>
+                            <input id="inputDescClass" class="form-control" type="text" @bind-value="Class.Description">
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Curso 1</li>
-                            <li class="list-group-item">Curso 3</li>
-                        </ul>
+
+
+                        <div class="mb-3">
+                            <label id="labelSchoolClass" class="form-label">Escola:</label>
+                            <input id="inputSchoolClass" class="form-control" type="text" disabled value="@School.DisplayName" />
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label id="labelStartDateClass" class="form-label">Data Início:</label>
+                                <input id="inputStartDateClasse" class="form-control" type="date" @bind-value="Class.StartDate">
+                            </div>
+
+
+                            <div class="col">
+                                <label id="labelEndDateClass" class="form-label">Data Fim:</label>
+                                <input id="inputEndDateClass" class="form-control" type="date" @bind-value="Class.EndDate">
+                            </div>
+
+                            <!--<a href="school/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Criar Escola</a>-->
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Cadastrar</button>
+
+                        </div>
+
                     </div>
+
+
+
+
+
+
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
         </div>
     </div>
+
+
 </EditForm>
 
 
