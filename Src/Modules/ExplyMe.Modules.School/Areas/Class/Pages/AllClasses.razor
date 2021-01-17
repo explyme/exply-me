@@ -1,0 +1,51 @@
+﻿@page "/class"
+@attribute [Authorize]
+
+@inject IClassFinder ClassFinder
+@inject NavigationManager NavigationManager
+
+
+<div class="row">
+    <div class="col-10">
+        @foreach (var classEntity in Classes)
+        {
+            <div class="d-block card border mb-2">
+                <div class="row">
+                    <div class="col m-2">
+                        <img class="thumbnail rounded-circle mx-auto" src="https://matheussolucoes.com/wp-content/uploads/2016/02/captacao-de-alunos-matheus-solucoes-1.jpg" />
+                    </div>
+                    <div class="col m-2">
+                        <span>@classEntity.NameClass</span>
+                    </div>
+                    <div class="col m-2">
+                        <button @onclick=" (() => ClassDetails(classEntity.Id))" class="btn btn-outline-success btn-sm">Detalhes da Turma</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="row">
+    <a href="class/create">
+        <span class="btn btn-primary">Criar Turma</span>
+    </a>
+</div>
+
+@code {
+    public static string Title => "Lista de Turmas";
+
+    private IEnumerable<ClassEntity> Classes { get; set; } = new List<ClassEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Classes = await ClassFinder.FindAllAsync();
+    }
+
+    private void ClassDetails(long classId)
+    {
+        var urlToRedirect = $"class/{classId}/details";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
+}
