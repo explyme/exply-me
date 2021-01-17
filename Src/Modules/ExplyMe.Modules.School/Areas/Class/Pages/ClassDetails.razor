@@ -42,15 +42,15 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <button type="submit" class="btn btn-primary btn-lg my-4">Associar Professor</button>
+                            <button @onclick="TeacherAssociate" type="submit" class="btn btn-primary btn-lg my-4">Associar Professor</button>
                         </div>
 
                         <div class="col">
-                            <button type="submit" class="btn btn-primary btn-lg my-4 ">Associar Aluno</button>
+                            <button @onclick="StudentAssociate" type="submit" class="btn btn-primary btn-lg my-4">Associar Aluno</button>
                         </div>
                     </div>
-                </div>               
-            </div>            
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -66,5 +66,16 @@
     protected override async Task OnInitializedAsync()
     {
         ClassEntity = await ClassFinder.FindByIdAsync(ClassId);
+    }
+
+    private void StudentAssociate()
+    {
+        var urlToRedirect = $"class/{ClassId}/student";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
+    private void TeacherAssociate()
+    {
+        var urlToRedirect = $"class/{ClassId}/teacher";
+        NavigationManager.NavigateTo(urlToRedirect);
     }
 }
