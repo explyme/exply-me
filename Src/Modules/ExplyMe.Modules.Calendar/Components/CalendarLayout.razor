@@ -1,0 +1,38 @@
+﻿<div class="row mt-4 position-relative">
+    <div class="col-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="calendar" Match="NavLinkMatch.All">
+                            Agendamentos
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="calendar/requests">
+                            Solicitações <span class="badge bg-secondary">1</span>
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="calendar/availability">
+                            Disponibilidade
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="calendar/availability-settings">
+                            Configurações
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

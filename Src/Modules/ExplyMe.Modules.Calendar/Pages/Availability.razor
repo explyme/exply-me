@@ -1,0 +1,42 @@
+﻿@page "/calendar/availability"
+@attribute [Authorize]
+@using ExplyMe.Modules.Calendar.Domain.Entities
+
+<CalendarLayout>
+    <div class="card position-relative">
+        <CustomizeSlots show="@ShowModal" Slots="@ActiveSlots" />
+
+        <div class="card-body">
+            <div class="text-center mb-5">
+                <h5>Calendário do instrutor</h5>
+                <span class="text-secondary">Aqui você pode ajustar seus horários e os dias em que está disponível.</span>
+            </div>
+            <CalendarComponent OnValidDayClick="Open" Events="Events" />
+        </div>
+    </div>
+</CalendarLayout>
+
+@code {
+    public bool ShowModal { get; set; }
+    public List<CalendarSlot> ActiveSlots { get; set; }
+
+    public void Open()
+    {
+        ActiveSlots = new List<CalendarSlot>
+    {
+            new CalendarSlot
+            {
+                StartTime = TimeSpan.FromHours(12),
+                EndTime = TimeSpan.FromHours(15)
+            }
+        };
+
+        ShowModal = true;
+    }
+
+    public Dictionary<int, List<string>> Events { get; set; } = new Dictionary<int, List<string>>()
+{
+        {18, new List<string> { "10:00 - 14:50", "14:50 - 15:30" }},
+        {19, new List<string> { "10:00 - 14:50" }}
+    };
+}
