@@ -5,33 +5,46 @@
 @inject NavigationManager NavigationManager
 
 
+<div class="card mx-auto shadow mt-4" style="width: 1200px">
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <br>
+                    <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
+                    <br>
+                    <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Detalhes da Escola</a>
+                </div>
 
-<div class="form-group">
-    <label>Nome da Escola:</label>
-    <span class="form-control">@School.DisplayName</span>
-</div>
-<div class="form-group">
-    <label>Descrição da Escola:</label>
-    <span class="form-control"> @School.Bio </span>
-</div>
-<div class="form-group">
-    <label>Url da Escola:</label>
-    <span class="form-control"> @School.FriendlyUrl </span>
-</div>
-<div class="form-group">
-    <label>Url do Logo da Escola:</label>
-    <span class="form-control">@School.LogoUrl </span>
-</div>
-<div class="form-group form-check">
-    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsPublic />
-    <label class="form-check-label"> é publico?</label>
-</div>
-<div class="form-group form-check">
-    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsBlocked />
-    <label class="form-check-label"> esta bloqueado ? </label>
-</div>
+                <div class="col-8">
+                    <br />
+                    <label>Nome:</label>
+                    <span class="form-control">@School.DisplayName</span>
+                    <br />
+                    <label>Descrição:</label>
+                    <span class="form-control"> @School.Bio </span>
+                    <br />
+                    <label>Site Institucional:</label>
+                    <span class="form-control"> @School.FriendlyUrl </span>
+                    <br />
+                    <label>Url do Logotipo da Escola:</label>
+                    <span class="form-control">@School.LogoUrl </span>
+                    <br />
+                    <label class="form-check-label">Escola Pública</label>
+                    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsPublic />
+                    <br />
+                    <label class="form-check-label">Bloqueado</label>
+                    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsBlocked />
+                    <br />
+                    <button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4">Associar Turma</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4">Associar Turma</button>
+
+    
+</div>
 
 
 @code {

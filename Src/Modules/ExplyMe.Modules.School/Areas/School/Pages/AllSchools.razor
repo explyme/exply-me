@@ -5,35 +5,52 @@
 @inject NavigationManager NavigationManager
 
 
-<div class="row">
-    <div class="col-10">
-        @foreach (var school in Schools)
-        {
-            <div class="d-block card border mb-2">
-                <div class="row">
-                    <div class="col m-2">
-                        <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
-                    </div>
-                    <div class="col m-2">
-                        <span>@school.DisplayName</span>
-                    </div>
-                    <div class="col m-2">
-                        <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm">Detalhes da Escola</button>
-                    </div>
-                    <div class="col m-2">
-                        <button @onclick=" (() => ClassAssociate(school.Id))" class="btn btn-outline-success btn-sm">Associar Turma</button>
-                    </div>
+<div class="card mx-auto shadow mt-4" style="width: 1200px">
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <br>
+                    <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
+                    <br>
+                    <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Lista das Escolas</a>
                 </div>
+
+                <div class="col-8">
+                    @foreach (var school in Schools)
+                    {
+                        <div class="d-block card border mb-2">
+                            <div class="row">
+                                <div class="col m-2">
+                                    <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                                </div>
+                                <div class="col m-2">
+                                    <span>@school.DisplayName</span>
+                                </div>
+                                <div class="col m-2">
+                                    <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm">Detalhes da Escola</button>
+                                </div>
+                                <div class="col m-2">
+                                    <button @onclick=" (() => ClassAssociate(school.Id))" class="btn btn-outline-success btn-sm">Associar Turma</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+
+                    <a href="school/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Criar Escola</a>
+
+                </div>
+
+
+
+
+
+
             </div>
-        }
+        </div>
     </div>
-</div>
-
-
-<div class="row">
-    <a href="school/create">
-        <span class="btn btn-primary">Criar Escola</span>
-    </a>
 </div>
 
 @code {
