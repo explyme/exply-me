@@ -52,6 +52,11 @@
             }
         });
 
+        $("#leave-room-button").click(function () {
+            console.log("fala fera");
+            room.disconnect();
+        });
+
         room.participants.forEach(participant => {
             participant.tracks.forEach(publication => {
                 if (publication.track) {
