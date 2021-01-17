@@ -9,11 +9,19 @@
     <div class="card-body">
         <div class="container">
             <div class="row">
+
                 <div class="col">
-                    <br>
-                    <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
-                    <br>
-                    <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Lista das Escolas</a>
+                    <div class="card" style="        border-color: #a380f6;">
+                        <div class="card-header" style="        background-color: #5b3ec9;">
+
+                            <h5 style="text-align:center; color:white;">Lista de Escolas</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
+
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-8">
@@ -22,13 +30,17 @@
                         <div class="d-block card border mb-2">
                             <div class="row">
                                 <div class="col m-2">
-                                    <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                                    <!--<img class="thumbnail rounded-circle mx-auto" src="https://uploaddeimagens.com.br/images/003/036/814/original/escola.JPG?1610916512" />-->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+                                        <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+                                    </svg>
                                 </div>
                                 <div class="col m-2">
                                     <span>@school.DisplayName</span>
                                 </div>
                                 <div class="col m-2">
-                                    <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm">Detalhes da Escola</button>
+                                    <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm" >Detalhes da Escola</button>
                                 </div>
                                 <div class="col m-2">
                                     <button @onclick=" (() => ClassAssociate(school.Id))" class="btn btn-outline-success btn-sm">Associar Turma</button>
@@ -37,12 +49,24 @@
                             </div>
                         </div>
                     }
-                    <a href="school/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Criar Escola</a>
+                    <a href="school/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width: 140px;background-color: #2f9c66;border-color: #124929;">Criar Escola</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn-outline-success {
+       border-color:#9279f4; 
+       color: #9279f4;
+    }
+    .btn-outline-success:hover {
+        color: #fff;
+        background-color: #9279f4;
+        border-color: #9279f4;
+    }
+</style>
 
 @code {
     public static string Title => "Lista das Escolas";

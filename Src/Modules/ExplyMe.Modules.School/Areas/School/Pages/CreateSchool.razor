@@ -11,37 +11,43 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <br>
-                        <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
-                        <br>
-                        <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Criar Escola</a>
-                    </div>
+                        <div class="card" style="        border-color: #a380f6;">
+                            <div class="card-header" style="        background-color: #5b3ec9;">
 
+                                <h5 style="text-align:center; color:white;">Criar Escola</h5>
+                            </div>
+                            <div class="card-body">
+
+                                <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-8">
-                        <br />
+                        
                         <label>Nome:</label>
                         <InputText id="displayName" class="form-control" @bind-Value="School.DisplayName" />
 
-                        <br />
-                        <label>Descrição:</label>
+                        
+                        <label  style="margin-top:10px;">Descrição:</label>
                         <InputText id="bio" class="form-control" @bind-Value="School.Bio" />
 
-                        <br />
-                        <label>Site Institucional:</label>
+                        
+                        <label  style="margin-top:10px;">Site Institucional:</label>
                         <InputText id="friendlyUrl" class="form-control" @bind-Value="School.FriendlyUrl" />
 
-                        <br />
-                        <label>Url do Logotipo da Escola:</label>
+                      
+                        <label style="margin-top:10px;">Url do Logotipo da Escola:</label>
                         <InputText id="logoUrl" class="form-control" @bind-Value="School.LogoUrl" />
 
-                        <br />
-                        <label class="form-check-label">Escola Pública</label>
-                        <InputCheckbox id="isPublic" class="form-check-input" @bind-Value="School.IsPublic" />
+                        
+                        <label class="form-check-label"  style="margin-top:10px;">Escola Pública</label>
+                        <InputCheckbox id="isPublic" class="form-check-input" @bind-Value="School.IsPublic"  style="margin-top:15px;" />
 
 
-                        <br />
-                        <button type="submit" class="d-block btn btn-success btn-lg mx-auto">Cadastrar</button>
-                        <br />
+                        
+                        <button type="submit" class="d-block btn btn-success btn-lg mx-auto"  style="width: 140px;background-color: #2f9c66;border-color: #124929;margin-top:10px;">Cadastrar</button>
+                       
                     </div>
                 </div>
             </div>
