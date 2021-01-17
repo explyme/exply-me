@@ -1,6 +1,7 @@
 using ExplyMe.DependencyInjection;
 using ExplyMe.Extensions;
 using ExplyMe.Infrastructure.Modules;
+using ExplyMe.Modules.ChatMessaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,7 @@ namespace ExplyMe.WebApp
                 .Inject<Modules.Core.ModuleInitializer>()
                 .Inject<Modules.Notification.ModuleInitializer>()
                 .Inject<Modules.Wallet.ModuleInitializer>()
+                .Inject<Modules.ChatMessaging.ModuleInitializer>()
                 .BindServices(services);
         }
 
@@ -76,6 +78,7 @@ namespace ExplyMe.WebApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapFallbackToPage("/_Host");
+
             });
 
             ModuleInjector.ConfigureServices(app, env);
