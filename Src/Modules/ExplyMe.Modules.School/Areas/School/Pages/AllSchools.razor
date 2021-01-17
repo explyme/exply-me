@@ -37,17 +37,8 @@
                             </div>
                         </div>
                     }
-
-
                     <a href="school/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Criar Escola</a>
-
                 </div>
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -71,7 +62,7 @@
 
     private void ClassAssociate(long schoolId)
     {
-        var urlToRedirect = $"school/{schoolId}/class/associate";
+        var urlToRedirect = $"school/{schoolId}/class";
         NavigationManager.NavigateTo(urlToRedirect);
     }
 }

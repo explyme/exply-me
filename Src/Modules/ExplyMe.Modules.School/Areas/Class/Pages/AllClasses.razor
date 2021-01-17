@@ -1,4 +1,4 @@
-﻿@page "/class"
+﻿@page "/school/{SchoolId:long}/class"
 @attribute [Authorize]
 
 @inject IClassFinder ClassFinder
@@ -28,13 +28,14 @@
 
 
 <div class="row">
-    <a href="class/create">
-        <span class="btn btn-primary">Criar Turma</span>
-    </a>
+    <button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4">Associar Turma</button>    
 </div>
 
 @code {
     public static string Title => "Lista de Turmas";
+
+     [Parameter]
+    public long SchoolId { get; set; }
 
     private IEnumerable<ClassEntity> Classes { get; set; } = new List<ClassEntity>();
 
@@ -46,6 +47,11 @@
     private void ClassDetails(long classId)
     {
         var urlToRedirect = $"class/{classId}/details";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
+     private void ClassAssociate()
+    {
+        var urlToRedirect = $"school/{SchoolId}/class/associate";       
         NavigationManager.NavigateTo(urlToRedirect);
     }
 }
