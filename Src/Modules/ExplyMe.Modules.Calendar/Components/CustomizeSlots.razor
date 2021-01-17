@@ -1,0 +1,143 @@
+﻿@using ExplyMe.Modules.Calendar.Domain
+@using ExplyMe.Modules.Calendar.Domain.Entities
+
+@if (Show)
+{
+    <div id="modal-backdrop" class="d-flex justify-content-center align-itens-center">
+        <div class="card my-auto mx-auto">
+            <div class="card-body">
+                <h4>Editar disponibilidade</h4>
+                <hr />
+                @foreach (var slot in Slots)
+                {
+                    <div class="row mb-3">
+                        <div class="col">
+                            <select class="form-select" @onchange="((e) => HandleSelection(TimeSpan.Parse((string)e.Value), slot))">
+                                <option>Selecione</option>
+                                @foreach (var availableStartTime in GetAvailableStartTimes(slot.StartTime))
+                                {
+                                    <option selected="@(slot.StartTime == availableStartTime)" value="@availableStartTime">@availableStartTime.ToString(@"hh\:mm")</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" @onchange="((e) => HandleEndTimeSelection(TimeSpan.Parse((string)e.Value), slot))">
+                                <option>Selecione</option>
+                                @foreach (var availableEndTime in GetAvailableEndTimes(slot.StartTime, slot.EndTime))
+                                {
+                                    <option selected="@(slot.EndTime == availableEndTime)" value="@availableEndTime">@availableEndTime.ToString(@"hh\:mm")</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button @onclick="(() => DeleteSlot(slot))" class="btn btn-outline-danger">
+                                <i class="bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+
+                <button class="btn btn-sm btn-outline-primary" disabled="@(!SlotsTime.Any(x => x.IsActive))"
+                        @onclick="NewSlot">
+                    <i class="bi-plus"></i>
+                    Adicionar novo espaço
+                </button>
+
+                <div class="mt-4">
+                    <span class="d-block mt-4 mb-3 text-muted">Para qual dia gostaria de aplicar as modificações?</span>
+
+                    <button class="btn btn-sm btn-primary">
+                        Para todas as Segundas
+                    </button>
+
+                    <button class="btn btn-sm btn-primary">
+                        Apenas para 14 SEP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    #modal-backdrop {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,.5);
+    }
+</style>
+
+@code {
+    [Parameter]
+    public bool Show { get; set; }
+
+    [Parameter]
+    public IList<CalendarSlot> Slots { get; set; } = new List<CalendarSlot>();
+
+    public List<SlotHour> SlotsTime { get; set; } = new List<SlotHour>();
+
+    public CustomizeSlots()
+    {
+        SlotsTime = GenerateSlots(TimeSpan.FromMinutes(30), TimeSpan.Zero, new TimeSpan(23, 30, 0));
+
+        if (Slots.Count() == 0)
+            NewSlot();
+    }
+
+    List<SlotHour> GenerateSlots(TimeSpan slotLength, TimeSpan min, TimeSpan max)
+    {
+        var accumulator = new List<SlotHour>();
+
+        while (min <= max)
+        {
+            accumulator.Add(new SlotHour { IsActive = true, Time = min });
+            min += slotLength;
+        }
+
+        return accumulator;
+    }
+
+    private IEnumerable<TimeSpan> GetAvailableStartTimes(TimeSpan? startTime)
+    {
+        return SlotsTime.Where(x => x.IsActive || x.Time == startTime).Select(x => x.Time);
+    }
+
+    private IEnumerable<TimeSpan> GetAvailableEndTimes(TimeSpan? startTime, TimeSpan endTime)
+    {
+        return SlotsTime.FindAll(x => x.IsActive && x.Time > startTime || x.Time > startTime && x.Time <= endTime).Select(x => x.Time);
+    }
+
+    private void HandleSelection(TimeSpan startHour, CalendarSlot CalendarSlot)
+    {
+        SlotsTime.Find(x => x.Time == startHour).IsActive = true;
+
+        CalendarSlot.StartTime = startHour;
+
+        SlotsTime.Find(x => x.Time == startHour).IsActive = false;
+    }
+
+    private void HandleEndTimeSelection(TimeSpan endTime, CalendarSlot CalendarSlot)
+    {
+        SlotsTime.FindAll(x => x.Time > CalendarSlot.StartTime && x.Time <= CalendarSlot.EndTime).ForEach(x => x.IsActive = true);
+
+        CalendarSlot.EndTime = endTime;
+
+        SlotsTime.FindAll(x => x.Time > CalendarSlot.StartTime && x.Time <= CalendarSlot.EndTime).ForEach(x => x.IsActive = false);
+    }
+
+    private void NewSlot()
+    {
+        Slots.Add(new CalendarSlot());
+    }
+
+    private void DeleteSlot(CalendarSlot slot)
+    {
+        SlotsTime.FindAll(x => x.Time >= slot.StartTime && x.Time <= slot.EndTime).ForEach(x => x.IsActive = true);
+
+        Slots.Remove(slot);
+    }
+}

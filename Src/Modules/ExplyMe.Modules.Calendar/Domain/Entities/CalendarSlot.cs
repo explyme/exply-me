@@ -7,9 +7,9 @@ namespace ExplyMe.Modules.Calendar.Domain.Entities
     {
         public long Id { get; set; }
         public long UserId { get; set; }
-        public byte StartHour { get; set; }
-        public byte EndHour { get; set; }
-        public DayOfWeek? RepeatOn { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+        public TimeSpan RepeatInterval { get; set; }
         public DateTime StartAt { get; set; }
     }
 }

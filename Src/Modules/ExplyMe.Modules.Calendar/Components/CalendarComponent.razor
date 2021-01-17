@@ -1,24 +1,25 @@
-﻿<div class="daysGrid">
-    <strong>Domingo</strong>
-    <strong>Segunda</strong>
-    <strong>Terça</strong>
-    <strong>Quarta</strong>
-    <strong>Quinta</strong>
-    <strong>Sexta</strong>
-    <strong>Sábado</strong>
+﻿<div class="daysGrid text-center text-muted">
+    <span>Domingo</span>
+    <span>Segunda</span>
+    <span>Terça</span>
+    <span>Quarta</span>
+    <span>Quinta</span>
+    <span>Sexta</span>
+    <span>Sábado</span>
 </div>
 
 <div class="daysGrid">
     @foreach (var day in Days)
     {
-        <div class="calendarDay border">
-            <span class="d-block @((day.Item1 ?? 0) < Now.Day ?"text-secondary" : "text-dark fw-bold" )">@day.Item1</span>
+        <div @onclick="(() => HandleClick(day.Item1.GetValueOrDefault()))" class="p-2 calendarDay border @(day.Item1.GetValueOrDefault() < Now.Day ?"text-secondary bg-light" : "text-dark" )"
+             style="@(day.Item1.GetValueOrDefault() < Now.Day ? "cursor: not-allowed" : "cursor: pointer" )">
+            <span class="d-block">@day.Item1</span>
             <ul class="list-unstyled">
                 @if (day.Item2 != null)
                 {
                     @foreach (var dayEvent in day.Item2)
                     {
-                        <li>@dayEvent</li>
+                        <li class="fw-bold" style="font-size: 12px">@dayEvent</li>
                     }
                 }
             </ul>
@@ -37,11 +38,18 @@
     .calendarDay {
         min-height: 100px
     }
+
+        .calendarDay:hover {
+            background: var(--bs-light)
+        }
 </style>
 
 @code {
     [Parameter]
     public Dictionary<int, List<string>> Events { get; set; } = new Dictionary<int, List<string>>();
+
+    [Parameter]
+    public EventCallback<int> OnValidDayClick { get; set; }
 
     public List<(int?, List<string>)> Days { get; set; } = new List<(int?, List<string>)>();
 
@@ -55,11 +63,11 @@
 
         CreatePrePreMonthPadding(firstMonthDayOfWeek);
 
-        for (int i = 1; i < daysInMonth; i++)
+        for (int i = 0; i < daysInMonth; i++)
         {
             Events.TryGetValue(i, out List<string> events);
 
-            Days.Add((i, events));
+            Days.Add((i + 1, events));
         }
     }
 
@@ -67,5 +75,12 @@
     {
         for (int i = 0; i < (int)firstMonthDayOfWeek; i++)
             Days.Add((null, null));
+    }
+
+    private void HandleClick(int day)
+    {
+        if (day < Now.Day) return;
+
+        OnValidDayClick.InvokeAsync(day);
     }
 }
