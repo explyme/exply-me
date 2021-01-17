@@ -1,0 +1,61 @@
+﻿@page "/class/{ClassId:long}/details"
+@attribute [Authorize]
+
+@inject IClassFinder ClassFinder
+@inject NavigationManager NavigationManager
+
+
+
+<div class="container">
+    <h3 class="pt-3 pb-3">Turma</h3>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label>Nome da Turma:</label>
+                <span class="form-control">@ClassEntity.NameClass</span>
+            </div>
+            <div class="mb-3">
+                <label>Descrição da Turma:</label>
+                <span class="form-control"> @ClassEntity.Description </span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label>Escola:</label>
+                <span class="form-control"> Escola XYZ </span>
+            </div>
+            <div class="mb-3">
+                <label>Professor:</label>
+                <span class="form-control"> Diego Mário Leopoldo </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label id="labelStartDateClass" class="form-label">Data Início</label>
+            <span class="form-control"> @ClassEntity.StartDate </span>
+        </div>
+        <div class="col-sm-3">
+            <label id="labelStartDateClass" class="form-label">Data Fim</label>
+            <span class="form-control"> @ClassEntity.EndDate </span>
+        </div>
+        <div class="col-sm-6">
+            <label>Curso:</label>
+            <span class="form-control"> Matemática Avançada III</span>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public static string Title => "Detalhes da Tuma";
+
+    [Parameter]
+    public long ClassId { get; set; }
+    private ClassEntity ClassEntity { get; set; } = new ClassEntity();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClassEntity = await ClassFinder.FindByIdAsync(ClassId);
+    }
+}

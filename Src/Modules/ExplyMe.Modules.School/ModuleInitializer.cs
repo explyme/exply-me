@@ -20,6 +20,7 @@ namespace ExplyMe.Modules.School
             services.AddTransient<ISchoolCreator, SchoolCreator>();
             services.AddTransient<ISchoolFinder, SchoolFinder>();
             services.AddTransient<IClassCreator, ClassCreator>();
+            services.AddTransient<IClassFinder, ClassFinder>();
         }
     }
 }
