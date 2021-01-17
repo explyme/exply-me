@@ -36,7 +36,6 @@
 
             if (isVideoMuted) {
                 room.localParticipant.videoTracks.forEach(publication => {
-                    console.log("vídeo habilitado");
                     publication.track.enable();
                 });
 
@@ -53,7 +52,6 @@
         });
 
         $("#leave-room-button").click(function () {
-            console.log("fala fera");
             room.disconnect();
         });
 
@@ -98,7 +96,6 @@ function handleTrackDisabled(track) {
     $("#waiting-participant").hide();
 
     track.on('enabled', (eventTrack) => {
-        console.log(eventTrack.kind);
         if (eventTrack.kind == "video") {
             $("#remote-video video").show();
             $("#no-cam").hide();
