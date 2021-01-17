@@ -113,6 +113,9 @@
     private async Task Submit()
     {
         var associatedClass = await ClassCreator.CreateAsync(Class);
+        var urlToRedirect = $"/class/{associatedClass.Id}/details";
+
+        NavigationManager.NavigateTo(urlToRedirect);
 
     }
 
