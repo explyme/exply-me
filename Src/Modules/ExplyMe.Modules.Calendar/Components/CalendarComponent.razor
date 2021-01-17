@@ -1,0 +1,55 @@
+﻿<h3>CalendarComponent</h3>
+
+<div class="daysGrid">
+    <strong>Domingo</strong>
+    <strong>Segunda</strong>
+    <strong>Terça</strong>
+    <strong>Quarta</strong>
+    <strong>Quinta</strong>
+    <strong>Sexta</strong>
+    <strong>Sábado</strong>
+</div>
+
+<div class="daysGrid">
+    @foreach (var day in Days)
+    {
+        <div class="calendarDay border">
+            <strong>@day</strong>
+        </div>
+    }
+</div>
+
+<style>
+    .daysGrid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-column-gap: 1px;
+        grid-row-gap: 1px;
+    }
+    .calendarDay {
+        height: 100px
+    }
+</style>
+
+@code {
+    public List<string> Days { get; set; } = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        var now = DateTime.UtcNow;
+        var daysInMonth = DateTime.DaysInMonth(now.Year, now.Month);
+
+        var firstMonthDayOfWeek = new DateTime(now.Year, now.Month, 1).DayOfWeek;
+
+        CreatePrePreMonthPadding(firstMonthDayOfWeek);
+
+        for (int i = 1; i < daysInMonth; i++)
+            Days.Add(i.ToString());
+    }
+
+    private void CreatePrePreMonthPadding(DayOfWeek firstMonthDayOfWeek)
+    {
+        for (int i = 0; i < (int)firstMonthDayOfWeek; i++)
+            Days.Add("");
+    }
+}

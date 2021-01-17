@@ -1,7 +1,6 @@
 using ExplyMe.DependencyInjection;
 using ExplyMe.Extensions;
 using ExplyMe.Infrastructure.Modules;
-using ExplyMe.Modules.ChatMessaging;
 using ExplyMe.Infrastructure.Services;
 using ExplyMe.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -48,6 +47,7 @@ namespace ExplyMe.WebApp
                 .Inject<Modules.Wallet.ModuleInitializer>()
                 .Inject<Modules.Call.ModuleInitializer>()
                 .Inject<Modules.ChatMessaging.ModuleInitializer>()
+                .Inject<Modules.Calendar.ModuleInitializer>()
                 .BindServices(services);
         }
 
