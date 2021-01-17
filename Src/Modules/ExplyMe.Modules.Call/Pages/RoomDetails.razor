@@ -1,0 +1,24 @@
+﻿@page "/call/room/{callId:guid}"
+@attribute [Authorize]
+@inject ICallRoomStore CallStore
+
+@if (RoomData != null)
+{
+    <RoomControls RoomData="RoomData" />
+}
+else
+{
+    <RoomNotFound />
+}
+
+@code {
+    [Parameter]
+    public Guid CallId { get; set; }
+
+    public CallRoom RoomData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        RoomData = await CallStore.GetAsync(CallId);
+    }
+}
