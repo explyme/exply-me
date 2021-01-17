@@ -1,0 +1,51 @@
+﻿@inject IWalletAccountService AccountService
+@inject UserManager<User> UserManager
+@inject NavigationManager Navigation
+
+<div class="card mx-auto my-4 p-3" style="width: 500px;">
+    <div class="card-body text-center">
+        @if (AccountHasBeenCreated)
+        {
+            <i class="bi-credit-card text-success my-2" style="font-size: 50px"></i>
+            <h3 class="fw-light text-success">Sucesso!</h3>
+            <h4 class="fw-light text-dark text-secondary">Sua conta foi aberta com sucesso</h4>
+
+            <button class="btn btn-success mx-auto mt-4" @onclick="GoToWallet">Ir para wallet</button>
+        }
+        else
+        {
+            <h3 class="fw-light text-dark">Ops... Parece que você ainda não tem uma wallet.</h3>
+
+            @if (IsLoading)
+            {
+                <button class="btn btn-primary mx-auto mt-4 disabled">Criando conta...</button>
+            }
+            else
+            {
+                <button class="btn btn-primary mx-auto mt-4" @onclick="(async () => await CreateWallet())">Criar wallet</button>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; }
+
+    private bool AccountHasBeenCreated { get; set; }
+    public bool IsLoading { get; set; }
+
+    async Task CreateWallet()
+    {
+        IsLoading = true;
+        var userId = Convert.ToInt64(UserManager.GetUserId((await AuthState).User));
+        await AccountService.CreateAsync(userId);
+        AccountHasBeenCreated = true;
+        IsLoading = false;
+    }
+
+    void GoToWallet()
+    {
+        Navigation.NavigateTo("/wallet", true);
+    }
+}

@@ -1,0 +1,141 @@
+﻿@page "/chatroom"
+
+
+@inject IMessageCreator MessageCreator
+@inject IMessageFinder MessageFinder
+@inject UserManager<User> UserManager
+@attribute [Authorize]
+
+@if (!IsChatting)
+{
+    <div class="card mx-auto my-4 p-3" style="width: 500px;">
+        <div class="card-body text-center">
+            <h3 class="fw-light text-dark">
+                Com quem você quer conversar ?
+            </h3>
+
+            <input type="text" maxlength="32" @bind="@ToUserName" />
+            <button type="button" @onclick="@Chat" class="btn btn-outline-primary ms-2">Chat!</button>
+        </div>
+    </div>
+}
+else
+{
+
+    <div class="alert alert-secondary mt-4">
+        <div class="row">
+            <div class="col-10">
+                <span>Você está conectado com: <b>@ToUserName</b></span>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-outline-warning mx-auto" @onclick="@DisconnectAsync">Disconnect</button>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var message in Messages)
+    {
+        {
+            <div class="row">
+                <div class="col-12">
+                    @if (@message.FromUser == 1)
+                    {
+                        <div class="float-left w-auto bg-white card" style="word-break:break-all">
+                            <div class="card-body">
+                                <strong class="d-block text-left">Diego</strong>
+                                <p class="text-left">@message.Message</p>
+                            </div>
+                        </div>
+                    }
+                    @if (@message.FromUser == 2)
+                    {
+                        <div class="float-right w-auto bg-info card" style="word-break:break-all">
+                            <div class="card-body">
+                                <strong class="d-block text-right">Inhago</strong>
+                                <p class="text-right">@message.Message</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    <hr />
+
+    <div class="row">
+        <div class="col-10">
+            <textarea class="form-control" placeholder="escreva uma mensagem" @bind="@NewMessage"></textarea>
+        </div>
+        <div class="col-2">
+            <button class="d-block btn btn-lg btn-outline-primary mx-auto" @onclick="@(() => SendAsync())">Enviar</button>
+        </div>
+    </div>
+
+
+}
+<style>
+    .user {
+        font-size: 0.8em;
+        font-weight: bold;
+        color: #000;
+    }
+</style>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; }
+
+    private bool IsChatting = false;
+
+    private string ToUserName;
+
+    private string NewMessage;
+
+    private IEnumerable<MessageEntity> Messages = new List<MessageEntity>();
+    private User CurrentUser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await UserManager.GetUserAsync((await AuthState).User);
+    }
+
+    public async Task Chat()
+    {
+        IsChatting = true;
+        await Task.Delay(1);
+        await LoadMessages();
+    }
+
+    private async Task DisconnectAsync()
+    {
+        if (IsChatting)
+        {
+            IsChatting = false;
+        }
+        await Task.Delay(1);
+    }
+
+    private async Task SendAsync()
+    {
+        if (IsChatting && !string.IsNullOrWhiteSpace(NewMessage))
+        {
+            var newMessage = new MessageEntity();
+
+
+            newMessage.FromUser = CurrentUser.Id;
+            newMessage.ToUser = CurrentUser.Id == 1 ? 2 : 1;
+            newMessage.Message = NewMessage;
+
+            await MessageCreator.SendAsync(newMessage);
+            await LoadMessages();
+            NewMessage = "";
+        }
+    }
+    private async Task LoadMessages()
+    {
+        var toUserId = CurrentUser.Id == 1 ? 2 : 1;
+        var fromUserId = CurrentUser.Id;
+        Messages = await MessageFinder.FindAllByFromUserIdAndToUserId(fromUserId, toUserId);
+    }
+
+}

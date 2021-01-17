@@ -1,6 +1,9 @@
 using ExplyMe.DependencyInjection;
 using ExplyMe.Extensions;
 using ExplyMe.Infrastructure.Modules;
+using ExplyMe.Modules.ChatMessaging;
+using ExplyMe.Infrastructure.Services;
+using ExplyMe.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,10 +38,16 @@ namespace ExplyMe.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddMemoryCache();
+            services.AddSingleton<IAppSettingsService, AppSettingsService>();
+
             ModuleInjector
                 .CreateInjector()
                 .Inject<Modules.Core.ModuleInitializer>()
                 .Inject<Modules.Notification.ModuleInitializer>()
+                .Inject<Modules.Wallet.ModuleInitializer>()
+                .Inject<Modules.Call.ModuleInitializer>()
+                .Inject<Modules.ChatMessaging.ModuleInitializer>()
                 .Inject<Modules.School.ModuleInitializer>()
                 .BindServices(services);
         }
@@ -52,10 +61,10 @@ namespace ExplyMe.WebApp
             else
             {
                 app.UseExceptionHandler("/Error");
-                app.UseHsts();
+                //app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -76,6 +85,7 @@ namespace ExplyMe.WebApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapFallbackToPage("/_Host");
+
             });
 
             ModuleInjector.ConfigureServices(app, env);

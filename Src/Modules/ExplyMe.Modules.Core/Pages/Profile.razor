@@ -1,0 +1,34 @@
+﻿@page "/profile"
+@attribute [Authorize]
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <br>
+            <img class="d-grid thumbnail rounded-circle mx-auto" src="data:image/jpeg;base64,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" />
+            <br>
+            <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Professor</a>
+        </div>
+        <div class="col-9">
+            <br>
+            <label class="form-label">Nome</label>
+            <input class="form-control" type="text" value="Diego Dacueba" disabled readonly>
+            <br>
+            <label class="form-label">E-mail</label>
+            <input class="form-control" type="text" value="diego@dacueba.com" disabled readonly>
+            <br>
+            <label class="form-label">Telefone</label>
+            <input class="form-control" type="text" value="(21) 6854-8456" disabled readonly>
+            <br>
+            <label class="form-label">Grau de Escolaridade</label>
+            <input class="form-control" type="text" value="3º Grau Completo" disabled readonly>
+            <br>
+            <label class="form-label">Endereço</label>
+            <input class="form-control" type="text" value="Rua dos Dacuebas 123 - RJ - BR" disabled readonly>
+        </div>      
+    </div>
+</div>
+@code {
+
+}
