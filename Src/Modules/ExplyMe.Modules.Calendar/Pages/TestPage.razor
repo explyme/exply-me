@@ -1,6 +1,49 @@
 ﻿@page "/calendar"
+@attribute [Authorize]
 
-<CalendarComponent />
+<div class="row mt-4">
+    <div class="col-3">
+        <div class="card border">
+            <div class="card-body">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <NavLink class="nav-link active shadow-sm border" href="calendar">
+                            <i class="bi-bell-fill"></i>
+                            Calendário
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="calendar/availability-settings">
+                            Configurações de disponibilidade
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card border">
+            <div class="card-header">
+                Calendário
+            </div>
+            <div class="card-body">
+                <CalendarComponent Events="Events" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .nav-pills .nav-link.active {
+        background: #FFF;
+        color: var(--bs-primary);
+    }
+</style>
+
 @code {
-
+    public Dictionary<int, List<string>> Events { get; set; } = new Dictionary<int, List<string>>()
+{
+        {18, new List<string> { "10:00 - 14:50", "14:50 - 15:30" }},
+        {19, new List<string> { "10:00 - 14:50" }}
+    };
 }

@@ -1,6 +1,4 @@
-﻿<h3>CalendarComponent</h3>
-
-<div class="daysGrid">
+﻿<div class="daysGrid">
     <strong>Domingo</strong>
     <strong>Segunda</strong>
     <strong>Terça</strong>
@@ -14,7 +12,16 @@
     @foreach (var day in Days)
     {
         <div class="calendarDay border">
-            <strong>@day</strong>
+            <span class="d-block @((day.Item1 ?? 0) < Now.Day ?"text-secondary" : "text-dark fw-bold" )">@day.Item1</span>
+            <ul class="list-unstyled">
+                @if (day.Item2 != null)
+                {
+                    @foreach (var dayEvent in day.Item2)
+                    {
+                        <li>@dayEvent</li>
+                    }
+                }
+            </ul>
         </div>
     }
 </div>
@@ -23,33 +30,42 @@
     .daysGrid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-column-gap: 1px;
-        grid-row-gap: 1px;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
     }
+
     .calendarDay {
-        height: 100px
+        min-height: 100px
     }
 </style>
 
 @code {
-    public List<string> Days { get; set; } = new List<string>();
+    [Parameter]
+    public Dictionary<int, List<string>> Events { get; set; } = new Dictionary<int, List<string>>();
+
+    public List<(int?, List<string>)> Days { get; set; } = new List<(int?, List<string>)>();
+
+    public DateTime Now { get; set; } = DateTime.UtcNow;
 
     protected override void OnInitialized()
     {
-        var now = DateTime.UtcNow;
-        var daysInMonth = DateTime.DaysInMonth(now.Year, now.Month);
+        var daysInMonth = DateTime.DaysInMonth(Now.Year, Now.Month);
 
-        var firstMonthDayOfWeek = new DateTime(now.Year, now.Month, 1).DayOfWeek;
+        var firstMonthDayOfWeek = new DateTime(Now.Year, Now.Month, 1).DayOfWeek;
 
         CreatePrePreMonthPadding(firstMonthDayOfWeek);
 
         for (int i = 1; i < daysInMonth; i++)
-            Days.Add(i.ToString());
+        {
+            Events.TryGetValue(i, out List<string> events);
+
+            Days.Add((i, events));
+        }
     }
 
     private void CreatePrePreMonthPadding(DayOfWeek firstMonthDayOfWeek)
     {
         for (int i = 0; i < (int)firstMonthDayOfWeek; i++)
-            Days.Add("");
+            Days.Add((null, null));
     }
 }
