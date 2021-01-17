@@ -6,17 +6,22 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <br>
-                    <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
-                    <br>
-                    <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Lista dos Alunos</a>
+                    <div class="card" style="        border-color: #a380f6;">
+                        <div class="card-header" style="        background-color: #5b3ec9;">
+                            <h5 style="text-align:center; color:white;">Lista dos Alunos</h5>
+                        </div>
+                        <div class="card-body">
+                            <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/868/original/undraw_shared_workspace_hwky.png?1610924179" style="width: 300px" />
+                        </div>
+                    </div>
                 </div>
-
                 <div class="col-8">
                     <div class="d-block card border mb-2">
                         <div class="row">
                             <div class="col m-2">
-                                <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                                </svg>
                             </div>
                             <div class="col m-2">
                                 <span>João Oliveira</span>
@@ -32,10 +37,12 @@
                     <div class="d-block card border mb-2">
                         <div class="row">
                             <div class="col m-2">
-                                <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                                </svg>
                             </div>
                             <div class="col m-2">
-                                <span>Julio Da Silva</span>
+                                <span>Julio da Silva</span>
                             </div>
                             <div class="col m-2">
                                 <button class="btn btn-outline-success btn-sm">Detalhes do Aluno</button>
@@ -45,16 +52,29 @@
                             </div>
                         </div>
                     </div>
-                    <a href="student/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Criar Aluno</a>
+                    <a href="teacher/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width: 180px;background-color: #2f9c66;border-color: #124929;">Criar Aluno</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .btn-outline-success {
+        border-color: #9279f4;
+        color: #9279f4;
+    }
+
+        .btn-outline-success:hover {
+            color: #fff;
+            background-color: #9279f4;
+            border-color: #9279f4;
+        }
+</style>
+
 @code {
     public static string Title => "Lista de Alunos";
-    
+
     [Parameter]
     public long ClassId { get; set; }
 

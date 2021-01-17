@@ -9,21 +9,16 @@
     <div class="card-body">
         <div class="container">
             <div class="row">
-
                 <div class="col">
                     <div class="card" style="        border-color: #a380f6;">
                         <div class="card-header" style="        background-color: #5b3ec9;">
-
                             <h5 style="text-align:center; color:white;">Lista de Escolas</h5>
                         </div>
                         <div class="card-body">
-
                             <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
-
                         </div>
                     </div>
                 </div>
-
                 <div class="col-8">
                     @foreach (var school in Schools)
                     {
@@ -40,7 +35,7 @@
                                     <span>@school.DisplayName</span>
                                 </div>
                                 <div class="col m-2">
-                                    <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm" >Detalhes da Escola</button>
+                                    <button @onclick=" (() => SchoolDetails(school.Id))" class="btn btn-outline-success btn-sm">Detalhes da Escola</button>
                                 </div>
                                 <div class="col m-2">
                                     <button @onclick=" (() => ClassAssociate(school.Id))" class="btn btn-outline-success btn-sm">Associar Turma</button>
@@ -58,14 +53,15 @@
 
 <style>
     .btn-outline-success {
-       border-color:#9279f4; 
-       color: #9279f4;
-    }
-    .btn-outline-success:hover {
-        color: #fff;
-        background-color: #9279f4;
         border-color: #9279f4;
+        color: #9279f4;
     }
+
+        .btn-outline-success:hover {
+            color: #fff;
+            background-color: #9279f4;
+            border-color: #9279f4;
+        }
 </style>
 
 @code {

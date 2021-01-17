@@ -6,17 +6,22 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <br>
-                    <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
-                    <br>
-                    <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Lista dos Professores</a>
+                    <div class="card" style="        border-color: #a380f6;">
+                        <div class="card-header" style="        background-color: #5b3ec9;">
+                            <h5 style="text-align:center; color:white;">Lista dos Professores</h5>
+                        </div>
+                        <div class="card-body">
+                            <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/861/original/undraw_teaching_f1cm.png?1610923612" style="width: 300px" />
+                        </div>
+                    </div>
                 </div>
-
                 <div class="col-8">
                     <div class="d-block card border mb-2">
                         <div class="row">
                             <div class="col m-2">
-                                <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+                                    <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                                </svg>
                             </div>
                             <div class="col m-2">
                                 <span>Jorge Silva</span>
@@ -32,7 +37,9 @@
                     <div class="d-block card border mb-2">
                         <div class="row">
                             <div class="col m-2">
-                                <img class="thumbnail rounded-circle mx-auto" src="https://lh3.googleusercontent.com/ogw/ADGmqu_ps7JAJA3G_lDLW_osAjIbc9-SYg2DRQzD_FkJtg=s32-c-mo" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+                                    <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                                </svg>
                             </div>
                             <div class="col m-2">
                                 <span>Carlos Soares</span>
@@ -45,12 +52,25 @@
                             </div>
                         </div>
                     </div>
-                    <a href="teacher/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width:140px">Criar Professor</a>
+                    <a href="teacher/create" class="btn btn-success btn-lg mx-auto my-4 d-block" style="width: 180px;background-color: #2f9c66;border-color: #124929;">Criar Professor</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn-outline-success {
+        border-color: #9279f4;
+        color: #9279f4;
+    }
+
+        .btn-outline-success:hover {
+            color: #fff;
+            background-color: #9279f4;
+            border-color: #9279f4;
+        }
+</style>
 
 @code {
     public static string Title => "Lista de Professores";
