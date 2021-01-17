@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Modules\ExplyMe.Modules.Core\ExplyMe.Modules.Core.csproj" />
     <ProjectReference Include="..\Modules\ExplyMe.Modules.Notification\ExplyMe.Modules.Notification.csproj" />
     <ProjectReference Include="..\Modules\ExplyMe.Modules.Wallet\ExplyMe.Modules.Wallet.csproj" />
+    <ProjectReference Include="..\Modules\ExplyMe.Modules.School\ExplyMe.Modules.School.csproj" />
   </ItemGroup>
 
 </Project>

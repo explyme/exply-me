@@ -48,6 +48,7 @@ namespace ExplyMe.WebApp
                 .Inject<Modules.Wallet.ModuleInitializer>()
                 .Inject<Modules.Call.ModuleInitializer>()
                 .Inject<Modules.ChatMessaging.ModuleInitializer>()
+                .Inject<Modules.School.ModuleInitializer>()
                 .BindServices(services);
         }
 
