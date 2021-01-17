@@ -1,40 +1,69 @@
-﻿@page "/class"
+﻿@page "/school/{SchoolId:long}/class"
 @attribute [Authorize]
 
 @inject IClassFinder ClassFinder
 @inject NavigationManager NavigationManager
 
 
-<div class="row">
-    <div class="col-10">
-        @foreach (var classEntity in Classes)
-        {
-            <div class="d-block card border mb-2">
-                <div class="row">
-                    <div class="col m-2">
-                        <img class="thumbnail rounded-circle mx-auto" src="https://matheussolucoes.com/wp-content/uploads/2016/02/captacao-de-alunos-matheus-solucoes-1.jpg" />
-                    </div>
-                    <div class="col m-2">
-                        <span>@classEntity.NameClass</span>
-                    </div>
-                    <div class="col m-2">
-                        <button @onclick=" (() => ClassDetails(classEntity.Id))" class="btn btn-outline-success btn-sm">Detalhes da Turma</button>
+<div class="card mx-auto shadow mt-4" style="width: 1200px">
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="        border-color: #a380f6;">
+                        <div class="card-header" style="        background-color: #5b3ec9;">
+                            <h5 style="text-align:center; color:white;">Lista das Turmas</h5>
+                        </div>
+                        <div class="card-body">
+                            <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/399/original/undraw_exams_g4ow.png?1610857380" style="width: 300px" />
+                        </div>
                     </div>
                 </div>
+
+                <div class="col-8">
+                    @foreach (var classEntity in Classes)
+                    {
+                        <div class="d-block card border mb-2">
+                            <div class="row">
+                                <div class="col m-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+                                    </svg>
+                                </div>
+                                <div class="col m-2">
+                                    <span>@classEntity.NameClass</span>
+                                </div>
+                                <div class="col m-2">
+                                    <button @onclick=" (() => ClassDetails(classEntity.Id))" class="btn btn-outline-success btn-sm">Detalhes da Turma</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4" style="width: 180px;background-color: #2f9c66;border-color: #124929;">Associar Turma</button>
+                </div>
             </div>
-        }
+        </div>
     </div>
 </div>
 
+<style>
+    .btn-outline-success {
+        border-color: #9279f4;
+        color: #9279f4;
+    }
 
-<div class="row">
-    <a href="class/create">
-        <span class="btn btn-primary">Criar Turma</span>
-    </a>
-</div>
+        .btn-outline-success:hover {
+            color: #fff;
+            background-color: #9279f4;
+            border-color: #9279f4;
+        }
+</style>
 
 @code {
     public static string Title => "Lista de Turmas";
+
+    [Parameter]
+    public long SchoolId { get; set; }
 
     private IEnumerable<ClassEntity> Classes { get; set; } = new List<ClassEntity>();
 
@@ -46,6 +75,11 @@
     private void ClassDetails(long classId)
     {
         var urlToRedirect = $"class/{classId}/details";
+        NavigationManager.NavigateTo(urlToRedirect);
+    }
+    private void ClassAssociate()
+    {
+        var urlToRedirect = $"school/{SchoolId}/class/associate";
         NavigationManager.NavigateTo(urlToRedirect);
     }
 }
