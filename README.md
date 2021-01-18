@@ -28,7 +28,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VisualStudio
 # Entre no link abaixo e clone o repositorio exply-me.
 https://github.com/explyme
 
-# Vá até a pasta onde o respositorio foi clonado e de um duplo click em "ExplyMe.sln".
+# Vá até a pasta onde o repositorio foi clonado e de um duplo click em "ExplyMe.sln".
 
 # O Visual Studio irá abrir com o codigo clonado.
 
