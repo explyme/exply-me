@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ExplyMe.Infrastructure\ExplyMe.Infrastructure.csproj" />
+    <ProjectReference Include="..\ExplyMe.Modules.Call\ExplyMe.Modules.Call.csproj" />
   </ItemGroup>
 
   <ItemGroup>

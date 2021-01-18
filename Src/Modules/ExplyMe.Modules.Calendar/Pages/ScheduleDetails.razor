@@ -1,0 +1,65 @@
+﻿@page "/calendar/schedules/1234"
+@inject ExplyMe.Modules.Call.Services.Interfaces.IRoomCreator RoomCreator
+@inject NavigationManager Navigation
+
+<div class="row mt-4">
+    <div class="col">
+        <div class="card shadow">
+            <div class="bg-primary text-white p-4 py-5 rounded">
+                <div class="row">
+                    <div class="col">
+                        <h5>213123123123</h5>
+                        <h1 class="d-inline fw-light" style="font-size: 40px">00:00 <span class="mx-3" style="font-size: 20px">/</span> 22:00</h1>
+                    </div>
+                    <div class="col">
+                        <img class="img-thumbnail rounded-circle float-end" style="width: 100px" src="https://images.generated.photos/MkCJmK1h5o3BpX9Xw8jG35BmFaFjJW9vbkyLcju_tXg/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMjAwNTFfMDAw/Njg5NV8wODEwNTA2/LmpwZw.jpg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <small class="d-block">Aluno</small>
+                <strong>Yago Rocha</strong>
+
+                <div class="row mt-2">
+                    <div class="col-2">
+                        <small class="d-block">Duração</small>
+                        <strong>60 min</strong>
+                    </div>
+                    <div class="col-2">
+                        <small class="d-block">Valor</small>
+                        <strong>R$ 10,00</strong>
+                    </div>
+                    <div class="col">
+                        <small class="d-block">Escola</small>
+                        <strong>Escola xpto</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="fw-light">Sala de vídeo</h4>
+
+                <p class="text-secondary">Entre na sala de vídeo para se conectar com seu instrutor</p>
+
+                <div class="d-grid mt-4">
+                    <button class="btn btn-primary" @onclick="(async () => await CreateRoom())">
+                        Entrar na sala
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    async Task CreateRoom()
+    {
+        var room = await RoomCreator.CreateP2PAsync(DateTime.UtcNow.AddYears(2), 0, 0);
+
+        Navigation.NavigateTo($"call/room/{room.Id.ToString()}", true);
+    }
+}
