@@ -14,15 +14,15 @@
                 <span class="text-secondary">Escola xpto</span>
             </div>
             <div class="col" d-flex align-items-center>
-                <strong class="text-primary me-2" style="font-size: 30px">14:05</strong>
-                <span>Sexta feira, 10 de Janeiro</span>
+                <strong class="text-primary me-2" style="font-size: 30px">@DateTime.Now.AddMinutes(5).ToString("HH:mm")</strong>
+                <span>@DateTime.Now.AddMinutes(5).ToString("dd/MM/yyyy")</span>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col text-center">
                 <button class="btn btn-outline-secondary">Recusar</button>
                 <button class="btn btn-primary">Aceitar</button>
-                <small class="text-muted d-block mt-2">Expira em: 20/02/2021 às 14:50</small>
+                <small class="text-muted d-block mt-2">Expira em: @DateTime.Now.AddDays(2).ToString("dd/MM/yyyy") às 14:50</small>
             </div>
         </div>
     </div>

@@ -2,16 +2,63 @@
 @attribute [Authorize]
 @inject UserManager<User> UserManager
 
-<AuthorizeView>
-    <h1>Bem vindo ao <strong>exply.me</strong></h1>
+<h5 class="my-4">Olá, @(CurrentUser?.FullName)</h5>
+<h3 class="my-4">Instrutores</h3>
 
-    <h3>UserId:</h3>
-    @UserManager.GetUserId(context.User)
+<div class="row">
+    <div class="col-2">
+        <div class="card" style="height: 360px">
+            <img src="https://images.generated.photos/y5xmE1ht_7d3PF8e4invv0CXK4nGwZ1p1uEP7vlZpfU/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA3NTAyNzUuanBn.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">José da Silva</h5>
+                <p class="card-text">Instrutor de matemática</p>
 
-    <h3>Nome:</h3>
-    @CurrentUser?.FullName
+                <div class="d-grid">
+                    <a class="d-block btn btn-primary" href="calendar">Agendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card" style="height: 360px">
+            <img src="https://images.generated.photos/VjWcKIbd9Fo8UBenaZfWi3tKD2yZi1si1yEC8j8qIA0/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA2MzY5NTQuanBn.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Ana Silva</h5>
+                <p class="card-text">Instrutor de português</p>
 
-</AuthorizeView>
+                <div class="d-grid">
+                    <a class="d-block btn btn-primary" href="calendar">Agendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card" style="height: 360px">
+            <img src="https://images.generated.photos/y5xmE1ht_7d3PF8e4invv0CXK4nGwZ1p1uEP7vlZpfU/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA3NTAyNzUuanBn.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Paulo da Costa</h5>
+                <p class="card-text">Instrutor de libras</p>
+
+                <div class="d-grid">
+                    <a class="d-block btn btn-primary" href="calendar">Agendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card" style="height: 360px">
+            <img src="https://images.generated.photos/kW29XT-ZLi7HHf3JkKtRZOk7Fz8N-KKIYJ2Zocg1izw/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zLzAz/MjUxNjMuanBn.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Rajesh</h5>
+                <p class="card-text">Instrutor de inglês</p>
+
+                <div class="d-grid">
+                    <a class="d-block btn btn-primary" href="calendar">Agendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
     [CascadingParameter]
@@ -23,8 +70,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //var user = UserManager.GetUserAsync(State.User);
-
         CurrentUser = await UserManager.GetUserAsync((await AuthState).User);
     }
 }
