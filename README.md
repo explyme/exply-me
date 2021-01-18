@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://exply.me">Exply-Me</a>
+    <a href="https://exply.me">Exply.Me</a>
 </h1>
 <p align="center" id="objetivo">Plataforma que irá conectar pessoas que buscam aulas/conhecimento e pessoas que estejam dispostas a ensinar. Podendo ser um trabalho remunerado ou voluntário. </p>
 
@@ -11,7 +11,7 @@
 </p>
 
 <h4 align="center"> 
-	Exply-Me em desenvolvimento
+	Exply.Me em desenvolvimento
 </h4>
 
 <h2 id="prerequisitos"><b>Pré-requisitos</b></h2
