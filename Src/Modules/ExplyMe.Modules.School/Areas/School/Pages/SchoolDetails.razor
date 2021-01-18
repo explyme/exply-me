@@ -10,41 +10,38 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <br>
-                    <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
-                    <br>
-                    <a href="#" class="d-grid col-6 btn btn-primary disabled mx-auto" aria-disabled="true" role="button" data-bs-toggle="button">Detalhes da Escola</a>
+                    <div class="card" style="        border-color: #a380f6;">
+                        <div class="card-header" style="        background-color: #5b3ec9;">
+                            <h5 style="text-align:center; color:white;">Detalhes da Escola</h5>
+                        </div>
+                        <div class="card-body">
+                            <img class="thumbnail rounded-circle mx-auto d-block" src="https://uploaddeimagens.com.br/images/003/036/239/original/undraw_Building_re_xfcm.png?1610836461" style="width: 300px" />
+                        </div>
+                    </div>
                 </div>
-
                 <div class="col-8">
-                    <br />
                     <label>Nome:</label>
                     <span class="form-control">@School.DisplayName</span>
-                    <br />
-                    <label>Descrição:</label>
+                    <label style="margin-top: 10px;">Descrição:</label>
                     <span class="form-control"> @School.Bio </span>
-                    <br />
-                    <label>Site Institucional:</label>
+                    <label style="margin-top: 10px;">Site Institucional:</label>
                     <span class="form-control"> @School.FriendlyUrl </span>
-                    <br />
-                    <label>Url do Logotipo da Escola:</label>
+                    <label style="margin-top: 10px;">Url do Logotipo da Escola:</label>
                     <span class="form-control">@School.LogoUrl </span>
-                    <br />
-                    <label class="form-check-label">Escola Pública</label>
-                    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsPublic />
-                    <br />
-                    <label class="form-check-label">Bloqueado</label>
-                    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsBlocked />
-                    <br />
-                    <button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4">Associar Turma</button>
+                    <label class="form-check-label" style="margin-top: 10px;">Escola Pública</label>
+                    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsPublic style="margin-top:15px;" />
+                    <label class="form-check-label" style="margin-top: 10px;">Bloqueado</label>
+                    <input type="checkbox" disabled="disabled" class="form-check-input" checked=@School.IsBlocked style="margin-top:15px;" />
+                </div>
+                    <button @onclick="ClassAssociate" class="d-block btn btn-success btn-lg mx-auto my-4" style="width: 180px;background-color: #2f9c66;border-color: #124929;margin-top:10px;">Associar Turma</button>
                 </div>
             </div>
         </div>
     </div>
 
 
-    
-</div>
+
+
 
 
 @code {
@@ -61,7 +58,7 @@
     }
     private void ClassAssociate()
     {
-        var urlToRedirect = $"school/{SchoolId}/class/associate";
+        var urlToRedirect = $"school/{SchoolId}/class";
         NavigationManager.NavigateTo(urlToRedirect);
     }
 }
